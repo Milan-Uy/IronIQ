@@ -98,6 +98,11 @@ Grid of 3 template cards. Each shows: name, days/week, short description, day br
 
 Simple form: name (text input), split type (select), days per week (select). Creates an empty program with no days, redirects to `/program/[id]`.
 
+Split type options:
+- `ppl` → "Push / Pull / Legs"
+- `upper_lower` → "Upper / Lower"
+- `full_body` → "Full Body"
+
 ### `/program/[id]` — Program Detail
 
 Header: back link, program name (editable), split type + days/week badges, "Active Program" toggle (green), Edit/Delete actions.
@@ -170,8 +175,24 @@ File: `src/app/(app)/program/actions.ts`
 - **Backgrounds:** Slate `#111827` (cards), `#1e293b` (borders/secondary), `#0a0a0a` (page)
 - **Font:** Outfit (Google Fonts, via `next/font/google`)
 - **Dark mode only** (existing app default)
-- **Muscle group badge colors:** Each muscle group gets a distinct color (red/chest, yellow/shoulders, cyan/triceps, indigo/back, pink/biceps, green/quads, yellow/hamstrings, red/glutes, etc.)
+- **Muscle group badge colors:**
+  - Chest: `red-400` / `#f87171`
+  - Back: `indigo-400` / `#818cf8`
+  - Shoulders: `amber-400` / `#fbbf24`
+  - Biceps: `fuchsia-400` / `#e879f9`
+  - Triceps: `cyan-400` / `#22d3ee`
+  - Quads: `green-400` / `#4ade80`
+  - Hamstrings: `orange-400` / `#fb923c`
+  - Glutes: `rose-400` / `#fb7185`
+  - Calves: `teal-400` / `#2dd4bf`
+  - Core: `yellow-300` / `#fde047`
 - **Active program:** Blue border on card, green "Active Program" badge on detail page
+
+---
+
+## Notes
+
+- The existing DB schema has an `is_template` boolean on `workout_programs` with RLS policies granting read access to template rows. This column is intentionally unused — templates live in code. The column can be repurposed or removed in a future migration.
 
 ---
 
