@@ -1,0 +1,61 @@
+<h2>Architecture Approach</h2>
+<p class="subtitle">How should the AI coach, workout engine, and UI work together?</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Chat-Centric (Recommended)</h3>
+      <p>The AI chatbot is the primary interface. Users interact conversationally to create, modify, and review workouts. The chat produces structured JSON that feeds into workout views, tracking, and comparison screens.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul>
+          <li>Natural coaching experience</li>
+          <li>Single interaction model</li>
+          <li>AI context stays coherent</li>
+        </ul></div>
+        <div class="cons"><h4>Cons</h4><ul>
+          <li>Power users may want direct editing</li>
+          <li>Chat can feel slow for quick changes</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Dashboard + Chat Sidebar</h3>
+      <p>Traditional fitness app UI (dashboard, workout cards, tracking forms) with an AI chat sidebar you can open anytime. Users can edit workouts directly OR ask the AI. Chat modifications update the same data.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul>
+          <li>Familiar app feel</li>
+          <li>Fast direct editing + AI help</li>
+          <li>Better for quick logging</li>
+        </ul></div>
+        <div class="cons"><h4>Cons</h4><ul>
+          <li>More UI to build</li>
+          <li>Two interaction paradigms to maintain</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Hybrid Tabs</h3>
+      <p>Tab-based layout: Coach (chat), My Program (structured view), Track (logging), Insights (analytics). The chat tab is the AI coach, other tabs are traditional UI. Actions in chat reflect across tabs in real-time.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul>
+          <li>Clear separation of concerns</li>
+          <li>Each feature gets dedicated space</li>
+          <li>Scales well as features grow</li>
+        </ul></div>
+        <div class="cons"><h4>Cons</h4><ul>
+          <li>Most to build upfront</li>
+          <li>Context switching between tabs</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</div>
