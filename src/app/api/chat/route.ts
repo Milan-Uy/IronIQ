@@ -6,6 +6,7 @@ import { buildSystemPrompt } from "@/lib/ai/system-prompt";
 import { buildUserContext } from "@/lib/ai/context";
 import { buildTools } from "@/lib/ai/tools";
 import { saveChatMessage } from "@/lib/supabase/chat";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export const maxDuration = 30;
 
@@ -14,6 +15,10 @@ export async function POST(req: Request) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
     return new Response("Unauthorized", { status: 401 });
+  }
+
+  if (!checkRateLimit(user.id)) {
+    return new Response("Too Many Requests", { status: 429 });
   }
 
   const body = await req.json();
