@@ -1,19 +1,23 @@
 import type { UserContext } from "./types";
 
+function sanitizeUserInput(value: string): string {
+  return value.replace(/[\x00-\x1F]/g, " ").trim();
+}
+
 export function buildSystemPrompt(context: UserContext): string {
   const { profile, activeProgram, recentSessions } = context;
 
-  const name = profile.displayName ? `, ${profile.displayName}` : "";
-  const goal = profile.fitnessGoal ?? "general fitness";
-  const experience = profile.experienceLevel ?? "intermediate";
+  const name = profile.displayName ? `, ${sanitizeUserInput(profile.displayName)}` : "";
+  const goal = sanitizeUserInput(profile.fitnessGoal ?? "general fitness");
+  const experience = sanitizeUserInput(profile.experienceLevel ?? "intermediate");
   const unit = profile.weightUnit ?? "lbs";
 
   let programSection = "The user has no active workout program yet.";
   if (activeProgram) {
     const daysList = activeProgram.days
-      .map((d) => `  - ${d.name} [dayId: ${d.id}] (${d.targetMuscles.join(", ")}): ${d.exercises.length} exercises`)
+      .map((d) => `  - ${sanitizeUserInput(d.name)} [dayId: ${d.id}] (${d.targetMuscles.map(sanitizeUserInput).join(", ")}): ${d.exercises.length} exercises`)
       .join("\n");
-    programSection = `Active program: "${activeProgram.name}" (${activeProgram.splitType ?? "custom"})\n${daysList}`;
+    programSection = `Active program: "${sanitizeUserInput(activeProgram.name)}" (${activeProgram.splitType ?? "custom"})\n${daysList}`;
   }
 
   let historySection = "No recent workout history.";
@@ -23,7 +27,7 @@ export function buildSystemPrompt(context: UserContext): string {
       recentSessions
         .map(
           (s) =>
-            `  - ${s.dayName} on ${new Date(s.completedAt).toLocaleDateString()}: ${s.setCount} sets, ${s.totalVolume.toLocaleString()} ${unit} volume`
+            `  - ${sanitizeUserInput(s.dayName)} on ${new Date(s.completedAt).toLocaleDateString()}: ${s.setCount} sets, ${s.totalVolume.toLocaleString()} ${unit} volume`
         )
         .join("\n");
   }
@@ -34,7 +38,7 @@ USER PROFILE:
 - Name${name}
 - Goal: ${goal}
 - Experience: ${experience}
-- Preferred split: ${profile.preferredSplit ?? "flexible"}
+- Preferred split: ${sanitizeUserInput(profile.preferredSplit ?? "flexible")}
 - Workouts per week: ${profile.workoutsPerWeek ?? "flexible"}
 - Weight unit: ${unit}
 
