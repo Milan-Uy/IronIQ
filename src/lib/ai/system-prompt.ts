@@ -1,7 +1,7 @@
 import type { UserContext } from "./types";
 
 function sanitizeUserInput(value: string): string {
-  return value.replace(/[\x00-\x1F]/g, " ").trim();
+  return value.replace(/[\x00-\x1F\x7F]/g, " ").trim();
 }
 
 export function buildSystemPrompt(context: UserContext): string {
@@ -17,7 +17,7 @@ export function buildSystemPrompt(context: UserContext): string {
     const daysList = activeProgram.days
       .map((d) => `  - ${sanitizeUserInput(d.name)} [dayId: ${d.id}] (${d.targetMuscles.map(sanitizeUserInput).join(", ")}): ${d.exercises.length} exercises`)
       .join("\n");
-    programSection = `Active program: "${sanitizeUserInput(activeProgram.name)}" (${activeProgram.splitType ?? "custom"})\n${daysList}`;
+    programSection = `Active program: "${sanitizeUserInput(activeProgram.name)}" (${sanitizeUserInput(activeProgram.splitType ?? "custom")})\n${daysList}`;
   }
 
   let historySection = "No recent workout history.";
