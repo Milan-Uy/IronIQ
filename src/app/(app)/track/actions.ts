@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import * as sessions from "@/lib/supabase/sessions";
+import { logSetSchema, updateSessionNotesSchema } from "@/lib/validation/actions";
 
 async function getCurrentUserId(): Promise<string> {
   const supabase = await createClient();
@@ -31,8 +32,11 @@ export async function logSet(
   reps: number,
   rpe?: number | null
 ) {
+  const parsed = logSetSchema.safeParse({ exerciseName, setNumber, weight, reps, rpe });
+  if (!parsed.success) return { error: "Invalid input" };
+
   try {
-    await sessions.upsertSet(sessionId, exerciseName, setNumber, weight, reps, rpe);
+    await sessions.upsertSet(sessionId, parsed.data.exerciseName, parsed.data.setNumber, parsed.data.weight, parsed.data.reps, parsed.data.rpe);
     revalidatePath(`/track/session/${sessionId}`);
     return {};
   } catch {
@@ -64,8 +68,11 @@ export async function removeSessionExercise(
 }
 
 export async function updateSessionNotes(sessionId: string, notes: string) {
+  const parsed = updateSessionNotesSchema.safeParse({ notes });
+  if (!parsed.success) return { error: "Invalid input" };
+
   try {
-    await sessions.updateSessionNotes(sessionId, notes);
+    await sessions.updateSessionNotes(sessionId, parsed.data.notes);
     return {};
   } catch {
     return { error: "Failed to save notes" };
