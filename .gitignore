@@ -35,6 +35,7 @@ yarn-error.log*
 next-env.d.ts
 
 # superpowers / claude tooling
-.superpowers/brainstorm/
+.superpowers/
 .agents/
 .claude/
+docs/superpowers/
