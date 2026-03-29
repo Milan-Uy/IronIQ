@@ -12,9 +12,11 @@ export interface UserContext {
     name: string;
     splitType: string | null;
     days: Array<{
+      id: string;
       name: string;
       targetMuscles: string[];
       exercises: Array<{
+        id: string;
         name: string;
         targetSets: number;
         targetReps: string | null;

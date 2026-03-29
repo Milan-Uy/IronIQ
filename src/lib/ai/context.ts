@@ -32,9 +32,11 @@ export async function buildUserContext(userId: string): Promise<UserContext> {
           name: activeProgram.name,
           splitType: activeProgram.split_type,
           days: activeProgram.workout_days.map((d) => ({
+            id: d.id,
             name: d.name,
             targetMuscles: d.target_muscles ?? [],
             exercises: d.workout_exercises.map((e) => ({
+              id: e.id,
               name: e.exercise_name,
               targetSets: e.target_sets,
               targetReps: e.target_reps,

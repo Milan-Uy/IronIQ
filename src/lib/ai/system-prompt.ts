@@ -11,7 +11,7 @@ export function buildSystemPrompt(context: UserContext): string {
   let programSection = "The user has no active workout program yet.";
   if (activeProgram) {
     const daysList = activeProgram.days
-      .map((d) => `  - ${d.name} (${d.targetMuscles.join(", ")}): ${d.exercises.length} exercises`)
+      .map((d) => `  - ${d.name} [dayId: ${d.id}] (${d.targetMuscles.join(", ")}): ${d.exercises.length} exercises`)
       .join("\n");
     programSection = `Active program: "${activeProgram.name}" (${activeProgram.splitType ?? "custom"})\n${daysList}`;
   }
@@ -51,5 +51,6 @@ GUIDELINES:
 - Reference the user's actual program and history when giving advice.
 - When the user asks to create a program, use the create_program tool to build it directly.
 - Always confirm what you did after using a tool (e.g., "I've added X to your program").
-- If asked about progression, reference their actual logged data when available.`;
+- If asked about progression, reference their actual logged data when available.
+- IMPORTANT: Before calling create_program, add_exercise_to_day, or modify_exercise, you MUST first describe the exact changes you plan to make in a text message and ask the user to confirm (e.g. "I'll add 3 sets of Plank and 3 sets of Ab Wheel to Day 1 Full Body A. Shall I go ahead?"). Wait for the user to reply with confirmation before calling the tool. Only proceed if they confirm.`;
 }
