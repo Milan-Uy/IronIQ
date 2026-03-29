@@ -1,0 +1,107 @@
+"use client";
+
+import { useState, useTransition } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { fetchProgressionData } from "@/app/(app)/insights/actions";
+
+interface ExerciseProgression {
+  sessionDate: string;
+  maxWeight: number;
+  totalVolume: number;
+}
+
+export function ProgressionCard({ exerciseNames }: { exerciseNames: string[] }) {
+  const [selected, setSelected] = useState(exerciseNames[0] ?? "");
+  const [data, setData] = useState<ExerciseProgression[]>([]);
+  const [isPending, startTransition] = useTransition();
+
+  function handleSelect(name: string | null) {
+    if (!name) return;
+    setSelected(name);
+    startTransition(async () => {
+      const result = await fetchProgressionData(name);
+      setData(result);
+    });
+  }
+
+  if (exerciseNames.length === 0) {
+    return (
+      <div className="text-sm text-muted-foreground">
+        Complete workouts to track progression.
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      <Select value={selected} onValueChange={handleSelect}>
+        <SelectTrigger className="h-9 w-full">
+          <SelectValue placeholder="Pick an exercise" />
+        </SelectTrigger>
+        <SelectContent>
+          {exerciseNames.map((name) => (
+            <SelectItem key={name} value={name}>
+              {name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      {isPending ? (
+        <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
+          Loading...
+        </div>
+      ) : data.length === 0 ? (
+        <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
+          {selected ? "Select an exercise above" : "No data for this exercise"}
+        </div>
+      ) : (
+        <ResponsiveContainer width="100%" height={180}>
+          <LineChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
+            <XAxis
+              dataKey="sessionDate"
+              tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <YAxis
+              tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+              axisLine={false}
+              tickLine={false}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "hsl(var(--background))",
+                border: "1px solid hsl(var(--border))",
+                borderRadius: 8,
+                fontSize: 12,
+              }}
+              formatter={(value) => [`${value} lbs`, "Max Weight"]}
+            />
+            <Line
+              type="monotone"
+              dataKey="maxWeight"
+              stroke="#0070f3"
+              strokeWidth={2}
+              dot={{ r: 4, fill: "#0070f3" }}
+              activeDot={{ r: 5 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      )}
+    </div>
+  );
+}

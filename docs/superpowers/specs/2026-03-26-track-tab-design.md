@@ -6,7 +6,7 @@ IronIQ has a fully functional program management system (create/edit programs, d
 
 ## User Flow
 
-1. **Track landing** (`/track`) — displays the active program's workout days as selectable cards. If an in-progress session exists, a "Resume Workout" banner appears instead.
+1. **Track landing** (`/track`) — displays the active program's workout days as selectable cards. If an in-progress session exists, a "Resume Workout" banner appears instead. If no active program exists, show an empty state with a link to `/program` to create or activate one.
 2. **Start session** — user taps a day card → creates a `workout_sessions` row with `status: "in_progress"` → redirects to the session page.
 3. **Active session** (`/track/session/[sessionId]`) — the workout logging screen:
    - Pre-loaded with the day's planned exercises (from `workout_exercises`)

@@ -1,0 +1,19 @@
+# Lock files (6k+ lines, no useful context)
+pnpm-lock.yaml
+
+# Auto-generated types (regenerated from DB schema)
+src/types/database.ts
+
+# shadcn/ui primitives (vendor code, not project-specific)
+src/components/ui/
+
+# Static assets
+public/
+
+# Build/config artifacts
+next-env.d.ts
+.next/
+node_modules/
+
+# Supabase migrations (read only when relevant)
+supabase/migrations/
