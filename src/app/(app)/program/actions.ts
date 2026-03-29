@@ -5,6 +5,14 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import * as programs from "@/lib/supabase/programs";
 import { getTemplate } from "@/lib/templates";
+import {
+  createProgramSchema,
+  updateProgramSchema,
+  createDaySchema,
+  updateDaySchema,
+  addExerciseSchema,
+  updateExerciseSchema,
+} from "@/lib/validation/actions";
 
 async function getCurrentUserId(): Promise<string> {
   const supabase = await createClient();
@@ -15,13 +23,14 @@ async function getCurrentUserId(): Promise<string> {
 
 export async function createProgram(prevState: { error?: string } | null, formData: FormData) {
   const userId = await getCurrentUserId();
-  const name = formData.get("name") as string;
-  const splitType = formData.get("splitType") as string;
-  const daysPerWeek = parseInt(formData.get("daysPerWeek") as string, 10);
 
-  if (!name || !splitType || !daysPerWeek) {
-    return { error: "All fields are required" };
-  }
+  const parsed = createProgramSchema.safeParse({
+    name: formData.get("name"),
+    splitType: formData.get("splitType"),
+    daysPerWeek: parseInt(formData.get("daysPerWeek") as string, 10),
+  });
+  if (!parsed.success) return { error: "Invalid input" };
+  const { name, splitType, daysPerWeek } = parsed.data;
 
   try {
     const id = await programs.createProgram(userId, name, splitType, daysPerWeek);
@@ -33,8 +42,11 @@ export async function createProgram(prevState: { error?: string } | null, formDa
 }
 
 export async function updateProgram(programId: string, fields: { name?: string; split_type?: string; days_per_week?: number }) {
+  const parsed = updateProgramSchema.safeParse(fields);
+  if (!parsed.success) return { error: "Invalid input" };
+
   try {
-    await programs.updateProgram(programId, fields);
+    await programs.updateProgram(programId, parsed.data);
     revalidatePath(`/program/${programId}`);
     return {};
   } catch {
@@ -78,9 +90,11 @@ export async function adoptTemplate(templateKey: string) {
 }
 
 export async function createDay(programId: string, name: string, targetMuscles: string[]) {
-  if (!name) return { error: "Day name is required" };
+  const parsed = createDaySchema.safeParse({ name, targetMuscles });
+  if (!parsed.success) return { error: "Invalid input" };
+
   try {
-    await programs.createDay(programId, name, targetMuscles);
+    await programs.createDay(programId, parsed.data.name, parsed.data.targetMuscles);
     revalidatePath(`/program/${programId}`);
     return {};
   } catch {
@@ -89,8 +103,11 @@ export async function createDay(programId: string, name: string, targetMuscles: 
 }
 
 export async function updateDay(dayId: string, programId: string, fields: { name?: string; target_muscles?: string[] }) {
+  const parsed = updateDaySchema.safeParse(fields);
+  if (!parsed.success) return { error: "Invalid input" };
+
   try {
-    await programs.updateDay(dayId, fields);
+    await programs.updateDay(dayId, parsed.data);
     revalidatePath(`/program/${programId}`);
     return {};
   } catch {
@@ -126,9 +143,11 @@ export async function addExerciseAction(
   targetReps: string,
   restSeconds: number
 ) {
-  if (!exerciseName) return { error: "Exercise name is required" };
+  const parsed = addExerciseSchema.safeParse({ exerciseName, targetSets, targetReps, restSeconds });
+  if (!parsed.success) return { error: "Invalid input" };
+
   try {
-    await programs.addExercise(dayId, exerciseName, targetSets, targetReps, restSeconds);
+    await programs.addExercise(dayId, parsed.data.exerciseName, parsed.data.targetSets, parsed.data.targetReps, parsed.data.restSeconds);
     revalidatePath(`/program/${programId}/day/${dayId}`);
     return {};
   } catch {
@@ -142,8 +161,11 @@ export async function updateExerciseAction(
   dayId: string,
   fields: { exercise_name?: string; target_sets?: number; target_reps?: string; rest_seconds?: number; notes?: string }
 ) {
+  const parsed = updateExerciseSchema.safeParse(fields);
+  if (!parsed.success) return { error: "Invalid input" };
+
   try {
-    await programs.updateExercise(exerciseId, fields);
+    await programs.updateExercise(exerciseId, parsed.data);
     revalidatePath(`/program/${programId}/day/${dayId}`);
     return {};
   } catch {
