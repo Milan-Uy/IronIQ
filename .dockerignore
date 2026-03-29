@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.gitignore
+.env*.local
+.env
+docs
+.claude
+.agents
+.superpowers
+coverage
+*.md
+Dockerfile
+docker-compose.yml
