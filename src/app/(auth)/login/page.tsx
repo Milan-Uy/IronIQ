@@ -38,6 +38,23 @@ export default function LoginPage() {
     router.refresh();
   }
 
+  async function handleGuestLogin() {
+    setError(null);
+    setLoading(true);
+
+    const supabase = createClient();
+    const { error } = await supabase.auth.signInAnonymously();
+
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+      return;
+    }
+
+    router.push("/program");
+    router.refresh();
+  }
+
   async function handleGoogleLogin() {
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
@@ -129,6 +146,24 @@ export default function LoginPage() {
             {loading ? "Signing in..." : "Sign in"}
           </Button>
         </form>
+
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-card px-2 text-muted-foreground">or</span>
+          </div>
+        </div>
+
+        <Button
+          variant="ghost"
+          className="w-full"
+          onClick={handleGuestLogin}
+          disabled={loading}
+        >
+          Continue as Guest
+        </Button>
       </CardContent>
 
       <CardFooter className="justify-center">
