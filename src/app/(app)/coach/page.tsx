@@ -1,18 +1,22 @@
-import { MessageSquare } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
+import { getChatHistory } from "@/lib/supabase/chat";
+import { CoachClient } from "./coach-client";
+import type { UIMessage } from "ai";
 
-export default function CoachPage() {
-  return (
-    <div className="flex h-[calc(100vh-5rem)] flex-col items-center justify-center gap-4 px-6 text-center">
-      <div className="rounded-full bg-muted p-4">
-        <MessageSquare className="h-8 w-8 text-muted-foreground" />
-      </div>
-      <div>
-        <h1 className="text-xl font-semibold">AI Coach</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Chat with your AI fitness coach to create workout plans, get exercise
-          advice, and more.
-        </p>
-      </div>
-    </div>
-  );
+export default async function CoachPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return null;
+
+  const history = await getChatHistory(user.id, 50).catch(() => []);
+
+  const initialMessages: UIMessage[] = history.map((msg) => ({
+    id: msg.id,
+    role: msg.role as "user" | "assistant",
+    content: msg.content,
+    parts: [{ type: "text" as const, text: msg.content }],
+    createdAt: new Date(msg.created_at),
+  }));
+
+  return <CoachClient initialMessages={initialMessages} />;
 }

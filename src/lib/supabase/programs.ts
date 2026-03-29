@@ -220,6 +220,34 @@ export async function reorderExercises(dayId: string, exerciseIds: string[]): Pr
   await Promise.all(updates);
 }
 
+export async function getActiveProgram(userId: string): Promise<ProgramWithDays | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("workout_programs")
+    .select(`
+      *,
+      workout_days (
+        *,
+        workout_exercises (*)
+      )
+    `)
+    .eq("user_id", userId)
+    .eq("is_active", true)
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) return null;
+  const typed = data as unknown as ProgramWithDays;
+  typed.workout_days = typed.workout_days
+    .sort((a, b) => a.day_order - b.day_order)
+    .map((day) => ({
+      ...day,
+      workout_exercises: day.workout_exercises.sort(
+        (a, b) => a.exercise_order - b.exercise_order
+      ),
+    }));
+  return typed;
+}
+
 export async function adoptTemplate(
   userId: string,
   template: import("@/lib/templates/types").WorkoutTemplate
