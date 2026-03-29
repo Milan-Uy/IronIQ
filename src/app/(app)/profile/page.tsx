@@ -2,12 +2,24 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { LogOut, Save } from "lucide-react";
+import { LogOut, Save, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { createClient } from "@/lib/supabase/client";
 import type { Database } from "@/types/database";
 
@@ -42,6 +54,7 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [isAnonymous, setIsAnonymous] = useState(false);
 
   useEffect(() => {
     async function loadProfile() {
@@ -49,6 +62,8 @@ export default function ProfilePage() {
       const {
         data: { user },
       } = await supabase.auth.getUser();
+
+      setIsAnonymous(user?.is_anonymous ?? false);
 
       if (!user) return;
 
@@ -114,6 +129,28 @@ export default function ProfilePage() {
   return (
     <div className="mx-auto max-w-lg space-y-6 px-4 py-6">
       <h1 className="text-2xl font-bold">Profile</h1>
+
+      {isAnonymous && (
+        <Card className="border-primary/50 bg-primary/5">
+          <CardContent className="flex items-center justify-between gap-4 py-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <p className="text-sm font-medium">You&apos;re browsing as a guest</p>
+                <Badge variant="secondary">Guest</Badge>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Create an account to save your progress.
+              </p>
+            </div>
+            <Link href="/profile/upgrade">
+              <Button size="sm">
+                <UserPlus className="mr-1.5 h-3.5 w-3.5" />
+                Sign Up
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>
@@ -260,14 +297,58 @@ export default function ProfilePage() {
 
       <Separator />
 
-      <Button
-        variant="outline"
-        onClick={handleSignOut}
-        className="w-full text-destructive hover:text-destructive"
-      >
-        <LogOut className="mr-2 h-4 w-4" />
-        Sign Out
-      </Button>
+      {isAnonymous ? (
+        <Dialog>
+          <DialogTrigger
+            render={
+              <Button
+                variant="outline"
+                className="w-full text-destructive hover:text-destructive"
+              />
+            }
+          >
+            <LogOut className="mr-2 h-4 w-4" />
+            Sign Out
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Sign out as guest?</DialogTitle>
+              <DialogDescription>
+                All your data (programs, workouts, progress) will be permanently
+                lost. Create an account first to save your progress.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <DialogClose
+                render={<Button variant="outline" />}
+              >
+                Cancel
+              </DialogClose>
+              <Link href="/profile/upgrade">
+                <Button>
+                  <UserPlus className="mr-1.5 h-4 w-4" />
+                  Create Account
+                </Button>
+              </Link>
+              <Button
+                variant="destructive"
+                onClick={handleSignOut}
+              >
+                Sign Out Anyway
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      ) : (
+        <Button
+          variant="outline"
+          onClick={handleSignOut}
+          className="w-full text-destructive hover:text-destructive"
+        >
+          <LogOut className="mr-2 h-4 w-4" />
+          Sign Out
+        </Button>
+      )}
     </div>
   );
 }
