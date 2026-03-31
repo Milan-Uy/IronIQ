@@ -1,10 +1,10 @@
-import { TabBar } from "@/components/navigation/tab-bar";
+import { Navigation } from "@/components/navigation/tab-bar";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-full flex-col">
-      <main className="flex-1 pb-20">{children}</main>
-      <TabBar />
+      <Navigation />
+      <main className="flex-1 pb-20 md:pb-0 md:pt-16">{children}</main>
     </div>
   );
 }
