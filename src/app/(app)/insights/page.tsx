@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import {
   getCompletedSessions,
@@ -7,19 +8,14 @@ import {
 } from "@/lib/supabase/insights";
 import { InsightsClient } from "./insights-client";
 
-export default async function InsightsPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return null;
-
+async function getInsightsData(userId: string) {
   const [sessions, weeklyVolume, muscleBalance, exerciseNames] = await Promise.all([
-    getCompletedSessions(user.id, 20, 0),
-    getVolumeByWeek(user.id, 8),
-    getVolumeByMuscleGroup(user.id, 30),
-    getRecentExerciseNames(user.id),
+    getCompletedSessions(userId, 20, 0),
+    getVolumeByWeek(userId, 8),
+    getVolumeByMuscleGroup(userId, 30),
+    getRecentExerciseNames(userId),
   ]);
 
-  // Compute this week's stats
   const weekStart = new Date();
   weekStart.setDate(weekStart.getDate() - weekStart.getDay() + 1);
   weekStart.setHours(0, 0, 0, 0);
@@ -27,19 +23,43 @@ export default async function InsightsPage() {
   const thisWeekSessions = sessions.filter(
     (s) => new Date(s.completed_at) >= weekStart
   );
-  const totalSessionsThisWeek = thisWeekSessions.length;
-  const totalVolumeThisWeek = thisWeekSessions.reduce((acc, s) => acc + s.total_volume, 0);
+
+  return {
+    sessions,
+    weeklyVolume,
+    muscleBalance,
+    exerciseNames,
+    totalSessionsThisWeek: thisWeekSessions.length,
+    totalVolumeThisWeek: thisWeekSessions.reduce((acc, s) => acc + s.total_volume, 0),
+  };
+}
+
+async function InsightsContent({ userId }: { userId: string }) {
+  const data = await getInsightsData(userId);
+  return <InsightsClient {...data} />;
+}
+
+export default async function InsightsPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return null;
 
   return (
     <div className="pb-20">
-      <InsightsClient
-        sessions={sessions}
-        weeklyVolume={weeklyVolume}
-        muscleBalance={muscleBalance}
-        exerciseNames={exerciseNames}
-        totalSessionsThisWeek={totalSessionsThisWeek}
-        totalVolumeThisWeek={totalVolumeThisWeek}
-      />
+      <Suspense
+        fallback={
+          <div className="mx-auto max-w-lg px-4 py-6 animate-pulse space-y-6">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="h-20 rounded-xl bg-muted" />
+              <div className="h-20 rounded-xl bg-muted" />
+            </div>
+            <div className="h-52 rounded-xl bg-muted" />
+            <div className="h-52 rounded-xl bg-muted" />
+          </div>
+        }
+      >
+        <InsightsContent userId={user.id} />
+      </Suspense>
     </div>
   );
 }

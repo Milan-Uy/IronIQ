@@ -1,7 +1,19 @@
-import { VolumeChart } from "./volume-chart";
-import { MuscleBalanceChart } from "./muscle-balance-chart";
+import dynamic from "next/dynamic";
 import { ProgressionCard } from "./progression-card";
 import type { WeeklyVolume, MuscleVolume } from "@/lib/supabase/insights";
+
+const VolumeChart = dynamic(() => import("./volume-chart").then((m) => m.VolumeChart), {
+  ssr: false,
+  loading: () => <div className="h-52 animate-pulse rounded-xl bg-muted" />,
+});
+
+const MuscleBalanceChart = dynamic(
+  () => import("./muscle-balance-chart").then((m) => m.MuscleBalanceChart),
+  {
+    ssr: false,
+    loading: () => <div className="h-52 animate-pulse rounded-xl bg-muted" />,
+  },
+);
 
 interface OverviewSectionProps {
   weeklyVolume: WeeklyVolume[];
