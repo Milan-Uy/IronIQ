@@ -138,3 +138,22 @@
     @apply font-sans;
   }
 }
+
+@layer utilities {
+  .tnum {
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+  }
+  .tight-display {
+    letter-spacing: -0.02em;
+  }
+  .tight-hero {
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Apply tabular numerals to all Recharts axis tick labels */
+.recharts-cartesian-axis-tick-value {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+}

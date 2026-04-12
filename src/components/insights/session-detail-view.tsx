@@ -64,11 +64,14 @@ export function SessionDetailView({ session }: { session: SessionDetail }) {
           {formatDateTime(session.completed_at)}
         </div>
         <div className="flex gap-4 text-sm">
-          <span><span className="font-medium">{session.sets.length}</span> <span className="text-muted-foreground">sets</span></span>
-          <span><span className="font-medium">{Math.round(totalVolume).toLocaleString()}</span> <span className="text-muted-foreground">total vol</span></span>
+          <span><span className="tnum font-medium">{session.sets.length}</span> <span className="text-muted-foreground">sets</span></span>
+          <span><span className="tnum font-medium">{Math.round(totalVolume).toLocaleString()}</span> <span className="text-muted-foreground">total vol</span></span>
         </div>
         {session.notes && (
-          <div className="flex items-start gap-2 rounded-lg bg-muted px-3 py-2 text-sm">
+          <div
+            className="flex items-start gap-2 rounded-lg border border-border/60 px-3 py-2 text-sm"
+            style={{ background: "var(--gradient-accent), hsl(var(--muted))" }}
+          >
             <StickyNote className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
             <span>{session.notes}</span>
           </div>
@@ -82,10 +85,10 @@ export function SessionDetailView({ session }: { session: SessionDetail }) {
             0
           );
           return (
-            <div key={group.name} className="rounded-lg border border-border p-4">
+            <div key={group.name} className="rounded-lg border border-border p-4 shadow-[var(--shadow-stripe-standard)]">
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="font-semibold text-sm">{group.name}</h3>
-                <span className="text-xs text-muted-foreground">
+                <h3 className="tight-display font-[400] text-sm">{group.name}</h3>
+                <span className="tnum text-xs text-muted-foreground">
                   {Math.round(groupVolume).toLocaleString()} vol
                 </span>
               </div>
@@ -97,7 +100,7 @@ export function SessionDetailView({ session }: { session: SessionDetail }) {
               </div>
               <div className="space-y-1.5">
                 {group.sets.map((s) => (
-                  <div key={s.id} className="flex gap-3 text-sm">
+                  <div key={s.id} className="tnum flex gap-3 text-sm">
                     <span className="w-8 text-center text-muted-foreground">{s.set_number}</span>
                     <span className="w-16 text-center">{s.weight ?? "—"}</span>
                     <span className="w-12 text-center">{s.reps ?? "—"}</span>

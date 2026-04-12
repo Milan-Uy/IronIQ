@@ -14,6 +14,14 @@ interface WeeklyVolume {
   volume: number;
 }
 
+const tooltipStyle = {
+  backgroundColor: "hsl(var(--card))",
+  border: "1px solid hsl(var(--primary) / 0.3)",
+  borderRadius: 6,
+  fontSize: 12,
+  boxShadow: "var(--shadow-stripe-elevated)",
+};
+
 export function VolumeChart({ data }: { data: WeeklyVolume[] }) {
   if (data.length === 0) {
     return (
@@ -24,31 +32,32 @@ export function VolumeChart({ data }: { data: WeeklyVolume[] }) {
   }
 
   return (
-    <ResponsiveContainer width="100%" height={180}>
+    <ResponsiveContainer width="100%" height={200}>
       <BarChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
+        <defs>
+          <linearGradient id="volumeFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 0.95 }} />
+            <stop offset="100%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 0.5 }} />
+          </linearGradient>
+        </defs>
         <XAxis
           dataKey="week"
-          tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+          tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
           axisLine={false}
           tickLine={false}
         />
         <YAxis
-          tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+          tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
           axisLine={false}
           tickLine={false}
           tickFormatter={(v) => (v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v)}
         />
         <Tooltip
-          contentStyle={{
-            backgroundColor: "hsl(var(--background))",
-            border: "1px solid hsl(var(--border))",
-            borderRadius: 8,
-            fontSize: 12,
-          }}
+          contentStyle={tooltipStyle}
           formatter={(value) => [`${Number(value).toLocaleString()} lbs`, "Volume"]}
           cursor={{ fill: "hsl(var(--muted))" }}
         />
-        <Bar dataKey="volume" fill="#0070f3" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="volume" fill="url(#volumeFill)" radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );

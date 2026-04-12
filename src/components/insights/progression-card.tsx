@@ -2,8 +2,8 @@
 
 import { useState, useTransition } from "react";
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   XAxis,
   YAxis,
   Tooltip,
@@ -70,36 +70,44 @@ export function ProgressionCard({ exerciseNames }: { exerciseNames: string[] }) 
         </div>
       ) : (
         <ResponsiveContainer width="100%" height={180}>
-          <LineChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
+          <AreaChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
+            <defs>
+              <linearGradient id="progressionFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 0.3 }} />
+                <stop offset="100%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 0 }} />
+              </linearGradient>
+            </defs>
             <XAxis
               dataKey="sessionDate"
-              tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
               axisLine={false}
               tickLine={false}
             />
             <YAxis
-              tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
               axisLine={false}
               tickLine={false}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "hsl(var(--background))",
-                border: "1px solid hsl(var(--border))",
-                borderRadius: 8,
+                backgroundColor: "hsl(var(--card))",
+                border: "1px solid hsl(var(--primary) / 0.3)",
+                borderRadius: 6,
                 fontSize: 12,
+                boxShadow: "var(--shadow-stripe-elevated)",
               }}
               formatter={(value) => [`${value} lbs`, "Max Weight"]}
             />
-            <Line
+            <Area
               type="monotone"
               dataKey="maxWeight"
-              stroke="#0070f3"
+              stroke="hsl(var(--primary))"
               strokeWidth={2}
-              dot={{ r: 4, fill: "#0070f3" }}
+              fill="url(#progressionFill)"
+              dot={{ r: 4, fill: "hsl(var(--primary))", strokeWidth: 0 }}
               activeDot={{ r: 5 }}
             />
-          </LineChart>
+          </AreaChart>
         </ResponsiveContainer>
       )}
     </div>

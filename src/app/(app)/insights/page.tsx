@@ -46,6 +46,10 @@ export default async function InsightsPage() {
 
   return (
     <div className="pb-20">
+      <div className="px-4 pb-2 pt-6">
+        <h1 className="tight-display text-2xl font-[400] text-foreground">Insights</h1>
+        <p className="mt-1 text-sm text-muted-foreground">Track your progress and training history</p>
+      </div>
       <Suspense
         fallback={
           <div className="mx-auto max-w-lg px-4 py-6 animate-pulse space-y-6">

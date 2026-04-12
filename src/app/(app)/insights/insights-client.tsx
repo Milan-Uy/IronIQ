@@ -24,9 +24,19 @@ export function InsightsClient({
 }: InsightsClientProps) {
   return (
     <Tabs defaultValue="overview" className="w-full">
-      <TabsList className="sticky top-0 z-10 w-full rounded-none border-b border-border bg-background">
-        <TabsTrigger value="overview" className="flex-1">Overview</TabsTrigger>
-        <TabsTrigger value="history" className="flex-1">History</TabsTrigger>
+      <TabsList className="sticky top-0 z-10 h-10 w-full rounded-none border-b border-border bg-background px-0">
+        <TabsTrigger
+          value="overview"
+          className="flex-1 rounded-none border-b-2 border-transparent text-muted-foreground data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none"
+        >
+          Overview
+        </TabsTrigger>
+        <TabsTrigger
+          value="history"
+          className="flex-1 rounded-none border-b-2 border-transparent text-muted-foreground data-[state=active]:border-primary data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none"
+        >
+          History
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="overview" className="mt-0">
         <OverviewSection

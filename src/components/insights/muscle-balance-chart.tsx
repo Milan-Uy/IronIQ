@@ -7,7 +7,6 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  Cell,
 } from "recharts";
 
 interface MuscleVolume {
@@ -15,18 +14,12 @@ interface MuscleVolume {
   sets: number;
 }
 
-const MUSCLE_COLORS: Record<string, string> = {
-  chest: "#3b82f6",
-  back: "#8b5cf6",
-  shoulders: "#06b6d4",
-  biceps: "#f59e0b",
-  triceps: "#f97316",
-  quads: "#10b981",
-  hamstrings: "#14b8a6",
-  glutes: "#ec4899",
-  calves: "#84cc16",
-  core: "#6366f1",
-  other: "#6b7280",
+const tooltipStyle = {
+  backgroundColor: "hsl(var(--card))",
+  border: "1px solid hsl(var(--primary) / 0.3)",
+  borderRadius: 6,
+  fontSize: 12,
+  boxShadow: "var(--shadow-stripe-elevated)",
 };
 
 export function MuscleBalanceChart({ data }: { data: MuscleVolume[] }) {
@@ -47,39 +40,33 @@ export function MuscleBalanceChart({ data }: { data: MuscleVolume[] }) {
         data={top}
         margin={{ top: 4, right: 16, left: 12, bottom: 0 }}
       >
+        <defs>
+          <linearGradient id="muscleFill" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 0.9 }} />
+            <stop offset="100%" style={{ stopColor: "hsl(var(--chart-2))", stopOpacity: 0.75 }} />
+          </linearGradient>
+        </defs>
         <XAxis
           type="number"
-          tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+          tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
           axisLine={false}
           tickLine={false}
         />
         <YAxis
           type="category"
           dataKey="muscleGroup"
-          tick={{ fontSize: 12, fill: "hsl(var(--foreground))" }}
+          tick={{ fontSize: 11, fill: "hsl(var(--foreground))" }}
           axisLine={false}
           tickLine={false}
           width={80}
           tickFormatter={(v) => v.charAt(0).toUpperCase() + v.slice(1)}
         />
         <Tooltip
-          contentStyle={{
-            backgroundColor: "hsl(var(--background))",
-            border: "1px solid hsl(var(--border))",
-            borderRadius: 8,
-            fontSize: 12,
-          }}
+          contentStyle={tooltipStyle}
           formatter={(value) => [`${value} sets`, "Volume"]}
           cursor={{ fill: "hsl(var(--muted))" }}
         />
-        <Bar dataKey="sets" radius={[0, 4, 4, 0]}>
-          {top.map((entry) => (
-            <Cell
-              key={entry.muscleGroup}
-              fill={MUSCLE_COLORS[entry.muscleGroup] ?? MUSCLE_COLORS.other}
-            />
-          ))}
-        </Bar>
+        <Bar dataKey="sets" fill="url(#muscleFill)" radius={[0, 4, 4, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );

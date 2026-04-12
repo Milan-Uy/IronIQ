@@ -56,18 +56,18 @@ export function SessionHistoryList({
 
   return (
     <div className="pb-6">
-      <div className="divide-y divide-border">
+      <div>
         {sessions.map((session) => (
           <Link
             key={session.id}
             href={`/insights/session/${session.id}`}
-            className="flex items-center justify-between px-4 py-4 hover:bg-muted/50 active:bg-muted"
+            className="group flex items-center justify-between border-b border-border/40 px-4 py-4 hover:bg-muted/20 active:bg-muted/30"
           >
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2">
                 <span className="font-medium text-sm">{session.day_name}</span>
               </div>
-              <div className="mt-0.5 text-xs text-muted-foreground">
+              <div className="tnum mt-0.5 text-xs text-muted-foreground">
                 {formatDate(session.completed_at)} · {formatDuration(session.duration_minutes)} · {session.set_count} sets
               </div>
               {session.target_muscles.length > 0 && (
@@ -80,14 +80,14 @@ export function SessionHistoryList({
             </div>
             <div className="ml-3 flex items-center gap-2">
               <div className="text-right">
-                <div className="text-sm font-medium">
+                <div className="tnum text-sm font-medium">
                   {session.total_volume >= 1000
                     ? `${(session.total_volume / 1000).toFixed(1)}k`
                     : session.total_volume}
                 </div>
                 <div className="text-xs text-muted-foreground">vol</div>
               </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              <ChevronRight className="h-4 w-4 text-muted-foreground transition-colors group-hover:text-primary" />
             </div>
           </Link>
         ))}
@@ -95,8 +95,8 @@ export function SessionHistoryList({
       {hasMore && (
         <div className="px-4 pt-4">
           <Button
-            variant="outline"
-            className="w-full"
+            variant="ghost"
+            className="w-full text-primary hover:text-primary"
             onClick={handleLoadMore}
             disabled={isPending}
           >
