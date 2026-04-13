@@ -28,15 +28,18 @@ export function ChatInput({
   }
 
   return (
-    <div className="border-t border-border bg-background px-4 pb-safe py-3">
-      <form onSubmit={onSubmit} className="flex items-end gap-2">
+    <div className="border-t border-border bg-background px-4 pb-safe pt-3 pb-4">
+      <form
+        onSubmit={onSubmit}
+        className="flex items-end gap-2 rounded-lg border border-border/60 bg-card p-1.5 shadow-[var(--shadow-stripe-standard)] transition-shadow focus-within:shadow-[var(--shadow-stripe-elevated)]"
+      >
         <Textarea
           ref={textareaRef}
           value={input}
           onChange={onInputChange}
           onKeyDown={handleKeyDown}
           placeholder="Ask your coach..."
-          className="min-h-[44px] max-h-32 flex-1 resize-none"
+          className="min-h-[44px] max-h-32 flex-1 resize-none border-0 bg-transparent shadow-none focus-visible:border-0 focus-visible:ring-0 dark:bg-transparent"
           rows={1}
           disabled={isLoading}
         />

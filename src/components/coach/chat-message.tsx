@@ -38,12 +38,12 @@ export function ChatMessage({ message }: { message: Message }) {
   }>;
 
   return (
-    <div className={`flex ${isUser ? "justify-end" : "justify-start"} px-4 py-1`}>
+    <div className={`flex ${isUser ? "justify-end" : "justify-start"} px-4 py-1.5`}>
       <div
-        className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${
+        className={`max-w-[85%] rounded-lg px-4 py-3 text-sm font-[400] shadow-[var(--shadow-stripe-standard)] ${
           isUser
             ? "bg-primary text-primary-foreground"
-            : "bg-muted text-foreground"
+            : "border border-border/60 bg-card text-foreground"
         }`}
       >
         {isUser ? (

@@ -21,20 +21,23 @@ export function ChatMessageList({
 
   if (messages.length === 0 && !isLoading) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6 py-16 text-center">
-        <div className="rounded-full bg-muted p-4">
-          <Bot className="h-8 w-8 text-muted-foreground" />
+      <div
+        className="flex flex-1 flex-col items-center justify-center gap-4 px-6 py-16 text-center"
+        style={{ background: "var(--gradient-hero)" }}
+      >
+        <div className="rounded-lg border border-border/60 bg-card p-4 shadow-[var(--shadow-stripe-standard)]">
+          <Bot className="h-8 w-8 text-primary" />
         </div>
         <div>
-          <div className="font-semibold">IronIQ Coach</div>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <div className="tight-display text-base font-medium">IronIQ Coach</div>
+          <p className="mt-1.5 text-sm text-muted-foreground">
             Ask me to create a workout plan, suggest exercises, analyze your progress, or answer fitness questions.
           </p>
         </div>
         <div className="mt-2 flex flex-col gap-2 text-xs text-muted-foreground">
-          <span className="rounded-full border border-border px-3 py-1">&quot;Create a PPL program for me&quot;</span>
-          <span className="rounded-full border border-border px-3 py-1">&quot;What can I do instead of bench press?&quot;</span>
-          <span className="rounded-full border border-border px-3 py-1">&quot;How&apos;s my training volume this week?&quot;</span>
+          <span className="rounded-lg border border-border/60 bg-card/40 px-3 py-1.5 transition-shadow hover:bg-card hover:shadow-[var(--shadow-stripe-standard)]">&quot;Create a PPL program for me&quot;</span>
+          <span className="rounded-lg border border-border/60 bg-card/40 px-3 py-1.5 transition-shadow hover:bg-card hover:shadow-[var(--shadow-stripe-standard)]">&quot;What can I do instead of bench press?&quot;</span>
+          <span className="rounded-lg border border-border/60 bg-card/40 px-3 py-1.5 transition-shadow hover:bg-card hover:shadow-[var(--shadow-stripe-standard)]">&quot;How&apos;s my training volume this week?&quot;</span>
         </div>
       </div>
     );
