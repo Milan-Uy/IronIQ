@@ -33,7 +33,7 @@ export function DayPicker({
           key={day.id}
           onClick={() => handleStart(day.id)}
           disabled={isPending}
-          className="w-full rounded-lg border border-border p-4 text-left transition-colors hover:bg-accent/50 disabled:opacity-50"
+          className="w-full rounded-lg border border-border p-4 text-left transition-opacity duration-150 hover:opacity-85 disabled:opacity-50"
         >
           <div className="flex items-center justify-between">
             <div>
@@ -49,7 +49,7 @@ export function DayPicker({
                 ))}
               </div>
             </div>
-            <Play className="h-5 w-5 text-primary" />
+            <Play className="h-5 w-5 text-[var(--sh-lavender)]" />
           </div>
         </button>
       ))}

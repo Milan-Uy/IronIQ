@@ -31,10 +31,10 @@ export function ActiveSessionBanner({
 
   return (
     <Link href={`/track/session/${sessionId}`}>
-      <div className="rounded-lg border border-primary bg-primary/10 p-4 transition-colors hover:bg-primary/20">
+      <div className="track-glow rounded-lg border border-[var(--sh-lavender)]/40 bg-[var(--sh-lavender)]/10 p-4 transition-opacity duration-150 hover:opacity-85">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Timer className="h-5 w-5 text-primary" />
+            <Timer className="h-5 w-5 text-[var(--sh-lavender)]" />
             <div>
               <div className="font-semibold">Resume Workout</div>
               <div className="text-sm text-muted-foreground">
@@ -42,7 +42,7 @@ export function ActiveSessionBanner({
               </div>
             </div>
           </div>
-          <ArrowRight className="h-5 w-5 text-primary" />
+          <ArrowRight className="h-5 w-5 text-[var(--sh-lavender)]" />
         </div>
       </div>
     </Link>

@@ -67,8 +67,8 @@ export function SessionHeader({
             <ArrowLeft className="h-5 w-5" />
           </Link>
           <div>
-            <div className="font-semibold text-sm">{dayName}</div>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+            <div className="track-display text-xl">{dayName}</div>
+            <div className="flex items-center gap-1 text-xs tnum text-[var(--sh-lavender)]">
               <Timer className="h-3 w-3" />
               {elapsed}
             </div>
@@ -88,6 +88,7 @@ export function SessionHeader({
             size="sm"
             onClick={handleFinish}
             disabled={isPending}
+            className="track-cream-btn"
           >
             {isPending ? "Finishing..." : "Finish Workout"}
           </Button>

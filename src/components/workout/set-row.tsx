@@ -52,7 +52,7 @@ export function SetRow({
   }
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 rounded-md transition-shadow duration-150 focus-within:[box-shadow:var(--sh-lavender-glow)]">
       <span className="w-8 text-center text-xs text-muted-foreground">
         {setNumber}
       </span>
@@ -88,7 +88,7 @@ export function SetRow({
         step={0.5}
       />
       <div className="w-5">
-        {isPending && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}
+        {isPending && <Loader2 className="h-4 w-4 animate-spin text-[var(--sh-lavender)]" />}
         {!isPending && saved && <Check className="h-4 w-4 text-green-500" />}
       </div>
     </div>

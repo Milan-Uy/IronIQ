@@ -53,12 +53,14 @@ export default async function SessionPage({
   const weightUnit = profileResult.data?.weight_unit ?? "lbs";
 
   return (
-    <SessionClient
-      session={session}
-      dayName={day.name}
-      plannedExercises={exercises}
-      previousSets={lastSession?.session_sets ?? []}
-      weightUnit={weightUnit}
-    />
+    <div className="track-surface">
+      <SessionClient
+        session={session}
+        dayName={day.name}
+        plannedExercises={exercises}
+        previousSets={lastSession?.session_sets ?? []}
+        weightUnit={weightUnit}
+      />
+    </div>
   );
 }

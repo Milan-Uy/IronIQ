@@ -57,11 +57,11 @@ export function SessionExerciseCard({
   return (
     <div className="rounded-lg border border-border p-4">
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="font-semibold text-sm">{exerciseName}</h3>
+        <h3 className="track-display text-base">{exerciseName}</h3>
         <Button
           variant="ghost"
           size="icon"
-          className="h-7 w-7 text-muted-foreground hover:text-destructive"
+          className="h-7 w-7 text-muted-foreground hover:opacity-85"
           onClick={handleRemove}
           disabled={isPending}
         >

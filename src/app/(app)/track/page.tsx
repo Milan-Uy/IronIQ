@@ -25,7 +25,7 @@ export default async function TrackPage() {
       .single();
 
     return (
-      <div className="px-4 pt-6">
+      <div className="track-surface px-4 pt-6">
         <h1 className="mb-4 text-xl font-semibold">Track</h1>
         <ActiveSessionBanner
           sessionId={activeSession.id}
@@ -39,7 +39,7 @@ export default async function TrackPage() {
   // No active program — empty state
   if (!activeProgram) {
     return (
-      <div className="flex h-[calc(100vh-5rem)] flex-col items-center justify-center gap-4 px-6 text-center">
+      <div className="track-surface flex h-[calc(100vh-5rem)] flex-col items-center justify-center gap-4 px-6 text-center">
         <div className="rounded-full bg-muted p-4">
           <Dumbbell className="h-8 w-8 text-muted-foreground" />
         </div>
@@ -61,7 +61,7 @@ export default async function TrackPage() {
 
   // Active program — show day picker
   return (
-    <div className="px-4 pt-6">
+    <div className="track-surface px-4 pt-6">
       <h1 className="mb-1 text-xl font-semibold">Track</h1>
       <p className="mb-4 text-sm text-muted-foreground">
         {activeProgram.name} — pick a day to start

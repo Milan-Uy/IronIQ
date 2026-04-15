@@ -127,6 +127,20 @@
   --gradient-accent: linear-gradient(135deg, oklch(0.58 0.24 275 / 0.18), oklch(0.72 0.18 320 / 0.12));
 }
 
+.track-surface {
+  --background: oklch(0.16 0.008 60);
+  --card: oklch(0.21 0.012 60);
+  --border: oklch(0.72 0.02 60 / 10%);
+  --muted-foreground: oklch(0.68 0.008 60);
+  --sh-lavender: oklch(0.82 0.12 290);
+  --sh-lavender-glow: 0 0 0 1px oklch(0.82 0.12 290 / 0.4), 0 0 24px -4px oklch(0.82 0.12 290 / 0.35);
+  --ring: oklch(0.82 0.12 290);
+  --sh-cream: oklch(0.93 0.015 80);
+  --sh-cream-ink: oklch(0.22 0.015 60);
+  --sh-lh-display: 0.96;
+  --sh-lh-body: 1.5;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -150,6 +164,21 @@
   .tight-hero {
     letter-spacing: -0.025em;
   }
+  .track-surface .track-display {
+    line-height: var(--sh-lh-display);
+    letter-spacing: -0.025em;
+    font-weight: 500;
+  }
+  .track-surface .track-glow {
+    box-shadow: var(--sh-lavender-glow);
+  }
+  .track-surface .track-cream-btn {
+    background-color: var(--sh-cream);
+    color: var(--sh-cream-ink);
+    transition: opacity 150ms linear;
+  }
+  .track-surface .track-cream-btn:hover { opacity: 0.85; }
+  .track-surface .track-cream-btn:disabled { opacity: 0.5; }
 }
 
 /* Apply tabular numerals to all Recharts axis tick labels */
