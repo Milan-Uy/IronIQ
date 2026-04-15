@@ -53,7 +53,7 @@ export function ExercisePicker({
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger className="w-full rounded-lg border border-dashed border-border p-3 text-sm text-muted-foreground hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2">
+      <SheetTrigger className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-border/60 bg-card/30 p-4 text-sm text-muted-foreground transition-all hover:border-primary/60 hover:bg-card/60 hover:text-primary">
         {label}
       </SheetTrigger>
       <SheetContent side="bottom" className="h-[85vh]">

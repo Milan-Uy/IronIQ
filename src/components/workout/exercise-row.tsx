@@ -66,8 +66,10 @@ export function ExerciseRow({
 
   if (editing) {
     return (
-      <div className="rounded-lg border border-primary/50 p-3 space-y-3">
-        <div className="font-medium text-sm">{exercise.exercise_name}</div>
+      <div className="space-y-3 rounded-lg border border-primary/40 bg-card p-4 shadow-[var(--shadow-stripe-elevated)]">
+        <div className="tight-display text-[15px] font-[500] text-foreground">
+          {exercise.exercise_name}
+        </div>
         <div className="grid grid-cols-3 gap-2">
           <div>
             <label className="text-[11px] text-muted-foreground">Sets</label>
@@ -107,12 +109,21 @@ export function ExerciseRow({
   }
 
   return (
-    <div className="flex items-center justify-between rounded-lg border border-border p-3">
-      <div>
-        <div className="font-medium text-sm">{exercise.exercise_name}</div>
-        <div className="text-muted-foreground text-[12px]">
-          {exercise.target_sets} × {exercise.target_reps}
-          {exercise.rest_seconds ? ` · ${exercise.rest_seconds}s rest` : ""}
+    <div className="flex items-center justify-between rounded-lg border border-border/60 bg-card p-4 shadow-[var(--shadow-stripe-standard)] transition-colors hover:border-border">
+      <div className="min-w-0">
+        <div className="tight-display truncate text-[15px] font-[500] text-foreground">
+          {exercise.exercise_name}
+        </div>
+        <div className="mt-1 text-[12px] text-muted-foreground">
+          <span className="tnum">{exercise.target_sets}</span>
+          <span className="mx-1 opacity-60">×</span>
+          <span className="tnum">{exercise.target_reps}</span>
+          {exercise.rest_seconds ? (
+            <>
+              <span className="mx-1.5 opacity-40">·</span>
+              <span className="tnum">{exercise.rest_seconds}s</span> rest
+            </>
+          ) : null}
         </div>
       </div>
       <div className="flex items-center gap-1">

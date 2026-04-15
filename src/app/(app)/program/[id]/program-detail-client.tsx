@@ -107,155 +107,170 @@ export function ProgramDetailClient({ program }: { program: ProgramWithDays }) {
   }
 
   return (
-    <div className="mx-auto max-w-lg px-4 py-6">
+    <div className="pb-20">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <Link href="/program" className="text-primary">
-          <ArrowLeft className="h-5 w-5" />
-        </Link>
-        {editingName ? (
-          <Input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            onBlur={handleSaveName}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleSaveName();
-              if (e.key === "Escape") {
-                setName(program.name);
-                setEditingName(false);
-              }
-            }}
-            className="text-xl font-bold h-auto py-0 border-0 border-b border-primary rounded-none px-0 focus-visible:ring-0"
-            autoFocus
-          />
-        ) : (
-          <h1
-            className="text-2xl font-bold cursor-pointer hover:text-primary transition-colors"
-            onClick={() => setEditingName(true)}
+      <div className="px-4 pb-2 pt-6">
+        <div className="mx-auto max-w-lg">
+          <Link
+            href="/program"
+            className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            {program.name}
-          </h1>
-        )}
-      </div>
+            <ArrowLeft className="h-4 w-4" /> Programs
+          </Link>
+          <div className="mt-2 flex items-start justify-between gap-3">
+            {editingName ? (
+              <Input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                onBlur={handleSaveName}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") handleSaveName();
+                  if (e.key === "Escape") {
+                    setName(program.name);
+                    setEditingName(false);
+                  }
+                }}
+                className="tight-display h-auto rounded-none border-0 border-b border-primary px-0 py-0 text-2xl font-[400] focus-visible:ring-0"
+                autoFocus
+              />
+            ) : (
+              <h1
+                className="tight-display cursor-pointer text-2xl font-[400] text-foreground transition-colors hover:text-primary"
+                onClick={() => setEditingName(true)}
+              >
+                {program.name}
+              </h1>
+            )}
+            <Dialog>
+              <DialogTrigger className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-destructive transition-colors hover:bg-destructive/10">
+                <Trash2 className="h-4 w-4" />
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Delete Program</DialogTitle>
+                  <DialogDescription>
+                    Are you sure you want to delete &quot;{program.name}&quot;? This will also delete all days and exercises. This action cannot be undone.
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <Button variant="destructive" onClick={handleDelete} disabled={isPending}>
+                    {isPending ? "Deleting..." : "Delete Program"}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
 
-      {/* Badges + Actions */}
-      <div className="flex items-center gap-2 mb-6 flex-wrap">
-        <span className="bg-secondary text-secondary-foreground text-[13px] px-2 py-0.5 rounded-md">
-          {SPLIT_LABELS[program.split_type] ?? program.split_type}
-        </span>
-        <span className="bg-secondary text-secondary-foreground text-[13px] px-2 py-0.5 rounded-md">
-          {program.days_per_week} days/wk
-        </span>
-
-        {program.is_active ? (
-          <Badge variant="default" className="bg-green-600 text-[11px]">
-            <Check className="h-3 w-3 mr-1" /> Active Program
-          </Badge>
-        ) : (
-          <Button
-            size="sm"
-            variant="outline"
-            className="text-[11px] h-6"
-            onClick={handleSetActive}
-            disabled={isPending}
-          >
-            Set Active
-          </Button>
-        )}
-
-        <div className="ml-auto">
-          <Dialog>
-            <DialogTrigger className="inline-flex items-center justify-center rounded-md h-8 w-8 p-0 text-destructive hover:bg-accent/50 transition-colors">
-              <Trash2 className="h-4 w-4" />
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Delete Program</DialogTitle>
-                <DialogDescription>
-                  Are you sure you want to delete &quot;{program.name}&quot;? This will also delete all days and exercises. This action cannot be undone.
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <Button variant="destructive" onClick={handleDelete} disabled={isPending}>
-                  {isPending ? "Deleting..." : "Delete Program"}
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          {/* Meta strip */}
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <span className="rounded-md bg-secondary/70 px-2 py-0.5 text-[12px] text-secondary-foreground">
+              {SPLIT_LABELS[program.split_type] ?? program.split_type}
+            </span>
+            <span className="rounded-md bg-secondary/70 px-2 py-0.5 text-[12px] text-secondary-foreground">
+              {program.days_per_week} days/wk
+            </span>
+            {program.is_active ? (
+              <Badge
+                variant="default"
+                className="bg-primary/15 text-[10px] font-medium uppercase tracking-widest text-primary"
+              >
+                <Check className="mr-1 h-3 w-3" /> Active
+              </Badge>
+            ) : (
+              <Button
+                size="sm"
+                variant="outline"
+                className="h-6 border-border/60 text-[11px]"
+                onClick={handleSetActive}
+                disabled={isPending}
+              >
+                Set Active
+              </Button>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Day List */}
-      <div className="space-y-2 mb-4">
-        {program.workout_days.map((day) => (
-          <DayCard
-            key={day.id}
-            day={day}
-            programId={program.id}
-            exerciseCount={day.workout_exercises.length}
-          />
-        ))}
-      </div>
+      <div className="mx-auto max-w-lg px-4 py-4">
+        {/* Section label */}
+        <div className="mb-3 text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
+          Training Days
+        </div>
 
-      {/* Add Day */}
-      {addingDay ? (
-        <div className="rounded-lg border border-dashed border-primary/50 p-4 space-y-3">
-          <Input
-            placeholder="Day name (e.g. Push, Upper A)"
-            value={newDayName}
-            onChange={(e) => setNewDayName(e.target.value)}
-            autoFocus
-          />
-          <div>
-            <p className="text-[12px] text-muted-foreground mb-2">Target muscles:</p>
-            <div className="flex gap-1.5 flex-wrap">
-              {ALL_MUSCLES.map((muscle) => (
-                <button
-                  key={muscle}
-                  onClick={() => toggleMuscle(muscle)}
-                  className="transition-opacity"
-                >
-                  <MuscleGroupBadge
-                    muscle={muscle}
-                    className={`cursor-pointer ${
-                      selectedMuscles.includes(muscle) ? "ring-1 ring-primary" : "opacity-40"
-                    }`}
-                  />
-                </button>
-              ))}
+        {/* Day List */}
+        <div className="mb-3 space-y-2.5">
+          {program.workout_days.map((day) => (
+            <DayCard
+              key={day.id}
+              day={day}
+              programId={program.id}
+              exerciseCount={day.workout_exercises.length}
+            />
+          ))}
+        </div>
+
+        {/* Add Day */}
+        {addingDay ? (
+          <div className="space-y-3 rounded-lg border border-primary/40 bg-card p-4 shadow-[var(--shadow-stripe-elevated)]">
+            <Input
+              placeholder="Day name (e.g. Push, Upper A)"
+              value={newDayName}
+              onChange={(e) => setNewDayName(e.target.value)}
+              autoFocus
+            />
+            <div>
+              <p className="mb-2 text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
+                Target muscles
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {ALL_MUSCLES.map((muscle) => (
+                  <button
+                    key={muscle}
+                    onClick={() => toggleMuscle(muscle)}
+                    className="transition-opacity"
+                  >
+                    <MuscleGroupBadge
+                      muscle={muscle}
+                      className={`cursor-pointer ${
+                        selectedMuscles.includes(muscle) ? "ring-1 ring-primary" : "opacity-40"
+                      }`}
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                size="sm"
+                onClick={handleCreateDay}
+                disabled={isPending || !newDayName.trim()}
+                className="flex-1"
+              >
+                {isPending ? "Adding..." : "Add Day"}
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  setAddingDay(false);
+                  setNewDayName("");
+                  setSelectedMuscles([]);
+                }}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
             </div>
           </div>
-          <div className="flex gap-2">
-            <Button
-              size="sm"
-              onClick={handleCreateDay}
-              disabled={isPending || !newDayName.trim()}
-              className="flex-1"
-            >
-              {isPending ? "Adding..." : "Add Day"}
-            </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => {
-                setAddingDay(false);
-                setNewDayName("");
-                setSelectedMuscles([]);
-              }}
-              className="flex-1"
-            >
-              Cancel
-            </Button>
-          </div>
-        </div>
-      ) : (
-        <button
-          onClick={() => setAddingDay(true)}
-          className="w-full rounded-lg border border-dashed border-border p-3 text-sm text-muted-foreground hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2"
-        >
-          <Plus className="h-4 w-4" /> Add Day
-        </button>
-      )}
+        ) : (
+          <button
+            onClick={() => setAddingDay(true)}
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-border/60 bg-card/30 p-4 text-sm text-muted-foreground transition-all hover:border-primary/60 hover:bg-card/60 hover:text-primary"
+          >
+            <Plus className="h-4 w-4" /> Add Day
+          </button>
+        )}
+      </div>
     </div>
   );
 }

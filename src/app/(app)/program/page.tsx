@@ -17,53 +17,76 @@ export default async function ProgramPage() {
   const hasPrograms = userPrograms.length > 0;
 
   return (
-    <div className="mx-auto max-w-lg px-4 py-6">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">My Programs</h1>
-        {hasPrograms && (
-          <Link
-            href="/program/new"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg"
-          >
-            <Plus className="h-5 w-5" />
-          </Link>
-        )}
-      </div>
-
-      {hasPrograms ? (
-        <div className="space-y-3">
-          {userPrograms.map((program) => (
-            <ProgramCard key={program.id} program={program} />
-          ))}
-          <div className="text-center pt-4">
-            <Link href="/program/templates" className="text-primary text-sm">
-              Browse Templates →
-            </Link>
-          </div>
-        </div>
-      ) : (
-        <div className="space-y-4">
-          <div className="text-center py-6">
-            <div className="text-4xl mb-2">🏋️</div>
-            <p className="text-muted-foreground text-sm">
-              No programs yet. Pick a template to get started!
+    <div className="pb-20">
+      <div className="px-4 pb-2 pt-6">
+        <div className="mx-auto flex max-w-lg items-start justify-between gap-4">
+          <div>
+            <h1 className="tight-display text-2xl font-[400] text-foreground">Programs</h1>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {hasPrograms
+                ? "Your training blueprints"
+                : "Pick a template or build your own"}
             </p>
           </div>
-          <div className="space-y-3">
-            {templates.map((template) => (
-              <TemplateCard key={template.key} template={template} />
-            ))}
-          </div>
-          <div className="text-center pt-2">
-            <span className="text-muted-foreground text-sm">
-              or{" "}
-              <Link href="/program/new" className="text-primary">
-                create from scratch
-              </Link>
-            </span>
-          </div>
+          {hasPrograms && (
+            <Link
+              href="/program/new"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-[var(--shadow-stripe-standard)] transition-transform hover:-translate-y-0.5"
+              aria-label="Create program"
+            >
+              <Plus className="h-5 w-5" />
+            </Link>
+          )}
         </div>
-      )}
+      </div>
+
+      <div className="mx-auto max-w-lg px-4 py-4">
+        {hasPrograms ? (
+          <div className="space-y-3">
+            {userPrograms.map((program) => (
+              <ProgramCard key={program.id} program={program} />
+            ))}
+            <div className="pt-4 text-center">
+              <Link
+                href="/program/templates"
+                className="text-sm text-primary transition-opacity hover:opacity-80"
+              >
+                Browse Templates →
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <div
+              className="rounded-lg border border-border/60 p-6 text-center shadow-[var(--shadow-stripe-elevated)]"
+              style={{ background: "var(--gradient-accent), var(--card)" }}
+            >
+              <div className="tight-hero text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
+                Get started
+              </div>
+              <p className="mt-2 tight-display text-base font-[400] text-foreground">
+                No programs yet — pick a template to begin
+              </p>
+            </div>
+            <div className="space-y-3">
+              {templates.map((template) => (
+                <TemplateCard key={template.key} template={template} />
+              ))}
+            </div>
+            <div className="pt-1 text-center">
+              <span className="text-sm text-muted-foreground">
+                or{" "}
+                <Link
+                  href="/program/new"
+                  className="text-primary transition-opacity hover:opacity-80"
+                >
+                  create from scratch
+                </Link>
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
