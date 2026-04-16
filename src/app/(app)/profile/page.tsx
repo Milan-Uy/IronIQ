@@ -2,13 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { LogOut, Save, UserPlus } from "lucide-react";
+import { LogOut, Minus, Plus, Save, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import Link from "next/link";
 import {
   Dialog,
@@ -26,7 +30,7 @@ import type { Database } from "@/types/database";
 type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 
 const FITNESS_GOALS = [
-  { value: "hypertrophy", label: "Hypertrophy (Muscle Growth)" },
+  { value: "hypertrophy", label: "Hypertrophy" },
   { value: "strength", label: "Strength" },
   { value: "general", label: "General Fitness" },
 ];
@@ -38,19 +42,39 @@ const EXPERIENCE_LEVELS = [
 ];
 
 const SPLIT_TYPES = [
-  { value: "ppl", label: "Push/Pull/Legs" },
+  { value: "ppl", label: "PPL" },
   { value: "upper_lower", label: "Upper/Lower" },
   { value: "full_body", label: "Full Body" },
 ];
 
 const WEIGHT_UNITS = [
-  { value: "lbs", label: "Pounds (lbs)" },
-  { value: "kg", label: "Kilograms (kg)" },
+  { value: "lbs", label: "lbs" },
+  { value: "kg", label: "kg" },
 ];
+
+function getInitials(name: string | null | undefined, email: string | null | undefined): string {
+  if (name && name.trim()) {
+    return name
+      .trim()
+      .split(/\s+/)
+      .slice(0, 2)
+      .map((w) => w[0].toUpperCase())
+      .join("");
+  }
+  if (email) return email[0].toUpperCase();
+  return "?";
+}
+
+const pillBase =
+  "rounded-lg border text-sm py-2 px-3 transition-colors cursor-pointer font-normal";
+const pillActive = "border-primary bg-primary/10 text-primary font-medium";
+const pillInactive =
+  "border-border text-muted-foreground hover:border-muted-foreground hover:text-foreground";
 
 export default function ProfilePage() {
   const router = useRouter();
   const [profile, setProfile] = useState<Partial<Profile>>({});
+  const [userEmail, setUserEmail] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -64,6 +88,7 @@ export default function ProfilePage() {
       } = await supabase.auth.getUser();
 
       setIsAnonymous(user?.is_anonymous ?? false);
+      setUserEmail(user?.email ?? null);
 
       if (!user) return;
 
@@ -126,37 +151,66 @@ export default function ProfilePage() {
     );
   }
 
-  return (
-    <div className="mx-auto max-w-lg space-y-6 px-4 py-6">
-      <h1 className="text-2xl font-bold">Profile</h1>
+  const initials = getInitials(profile.display_name, userEmail);
+  const displayName = profile.display_name || userEmail || "Your Name";
 
+  return (
+    <div className="mx-auto max-w-lg space-y-4 px-4 pt-6 pb-20">
+
+      {/* Guest alert */}
       {isAnonymous && (
-        <Card className="border-primary/50 bg-primary/5">
-          <CardContent className="flex items-center justify-between gap-4 py-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <p className="text-sm font-medium">You&apos;re browsing as a guest</p>
-                <Badge variant="secondary">Guest</Badge>
+        <Card className="border-amber-500/30 bg-amber-500/5">
+          <CardContent className="py-4 space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-medium">Browsing as a guest</p>
+                  <span className="text-xs bg-amber-500/20 text-amber-400 rounded-full px-2 py-0.5">
+                    Guest
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Create an account to save your programs and progress permanently.
+                </p>
               </div>
-              <p className="text-xs text-muted-foreground">
-                Create an account to save your progress.
-              </p>
+              <Link href="/profile/upgrade" className="shrink-0">
+                <Button size="sm">
+                  <UserPlus className="mr-1.5 h-3.5 w-3.5" />
+                  Sign Up
+                </Button>
+              </Link>
             </div>
-            <Link href="/profile/upgrade">
-              <Button size="sm">
-                <UserPlus className="mr-1.5 h-3.5 w-3.5" />
-                Sign Up
-              </Button>
-            </Link>
           </CardContent>
         </Card>
       )}
 
-      <Card>
+      {/* Hero card */}
+      <div
+        className="rounded-xl border border-white/10 shadow-[var(--shadow-stripe-elevated)] overflow-hidden"
+        style={{ background: "var(--gradient-hero), var(--card)" }}
+      >
+        <div className="flex flex-col items-center gap-3 py-10 px-6">
+          <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+            <span className="text-xl font-medium text-primary">{initials}</span>
+          </div>
+          <div className="text-center">
+            <p className="text-2xl tight-display text-foreground">{displayName}</p>
+            {userEmail && (
+              <p className="mt-1 text-sm text-muted-foreground">{userEmail}</p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Fitness Preferences card */}
+      <Card className="shadow-[var(--shadow-stripe-elevated)]">
         <CardHeader>
-          <CardTitle className="text-base">Personal Info</CardTitle>
+          <CardTitle className="tight-display text-lg">Fitness Preferences</CardTitle>
+          <CardDescription>Personalizes your AI coach recommendations.</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
+
+          {/* Display Name */}
           <div className="space-y-2">
             <Label htmlFor="displayName">Display Name</Label>
             <Input
@@ -168,27 +222,17 @@ export default function ProfilePage() {
               }
             />
           </div>
-        </CardContent>
-      </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Fitness Preferences</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
+          {/* Fitness Goal */}
           <div className="space-y-2">
             <Label>Fitness Goal</Label>
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-3 gap-2">
               {FITNESS_GOALS.map((goal) => (
                 <button
                   key={goal.value}
-                  onClick={() =>
-                    setProfile({ ...profile, fitness_goal: goal.value })
-                  }
-                  className={`rounded-lg border px-4 py-3 text-left text-sm transition-colors ${
-                    profile.fitness_goal === goal.value
-                      ? "border-primary bg-primary/10 text-primary"
-                      : "border-border hover:border-muted-foreground"
+                  onClick={() => setProfile({ ...profile, fitness_goal: goal.value })}
+                  className={`${pillBase} text-center ${
+                    profile.fitness_goal === goal.value ? pillActive : pillInactive
                   }`}
                 >
                   {goal.label}
@@ -197,6 +241,7 @@ export default function ProfilePage() {
             </div>
           </div>
 
+          {/* Experience Level */}
           <div className="space-y-2">
             <Label>Experience Level</Label>
             <div className="grid grid-cols-3 gap-2">
@@ -206,10 +251,8 @@ export default function ProfilePage() {
                   onClick={() =>
                     setProfile({ ...profile, experience_level: level.value })
                   }
-                  className={`rounded-lg border px-3 py-2 text-center text-sm transition-colors ${
-                    profile.experience_level === level.value
-                      ? "border-primary bg-primary/10 text-primary"
-                      : "border-border hover:border-muted-foreground"
+                  className={`${pillBase} text-center ${
+                    profile.experience_level === level.value ? pillActive : pillInactive
                   }`}
                 >
                   {level.label}
@@ -218,19 +261,18 @@ export default function ProfilePage() {
             </div>
           </div>
 
+          {/* Preferred Split */}
           <div className="space-y-2">
             <Label>Preferred Split</Label>
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-3 gap-2">
               {SPLIT_TYPES.map((split) => (
                 <button
                   key={split.value}
                   onClick={() =>
                     setProfile({ ...profile, preferred_split: split.value })
                   }
-                  className={`rounded-lg border px-4 py-3 text-left text-sm transition-colors ${
-                    profile.preferred_split === split.value
-                      ? "border-primary bg-primary/10 text-primary"
-                      : "border-border hover:border-muted-foreground"
+                  className={`${pillBase} text-center ${
+                    profile.preferred_split === split.value ? pillActive : pillInactive
                   }`}
                 >
                   {split.label}
@@ -239,37 +281,50 @@ export default function ProfilePage() {
             </div>
           </div>
 
+          {/* Workouts per Week — stepper */}
           <div className="space-y-2">
-            <Label htmlFor="workoutsPerWeek">Workouts per Week</Label>
-            <Input
-              id="workoutsPerWeek"
-              type="number"
-              min={1}
-              max={7}
-              placeholder="3-6"
-              value={profile.workouts_per_week || ""}
-              onChange={(e) =>
-                setProfile({
-                  ...profile,
-                  workouts_per_week: parseInt(e.target.value) || null,
-                })
-              }
-            />
+            <Label>Workouts per Week</Label>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() =>
+                  setProfile({
+                    ...profile,
+                    workouts_per_week: Math.max(1, (profile.workouts_per_week ?? 3) - 1),
+                  })
+                }
+                className="w-8 h-8 rounded-md border border-border hover:border-primary hover:text-primary transition-colors flex items-center justify-center text-muted-foreground"
+                aria-label="Decrease"
+              >
+                <Minus className="h-3.5 w-3.5" />
+              </button>
+              <span className="w-12 text-center text-sm font-medium tabular-nums">
+                {profile.workouts_per_week ?? "—"}
+              </span>
+              <button
+                onClick={() =>
+                  setProfile({
+                    ...profile,
+                    workouts_per_week: Math.min(7, (profile.workouts_per_week ?? 3) + 1),
+                  })
+                }
+                className="w-8 h-8 rounded-md border border-border hover:border-primary hover:text-primary transition-colors flex items-center justify-center text-muted-foreground"
+                aria-label="Increase"
+              >
+                <Plus className="h-3.5 w-3.5" />
+              </button>
+            </div>
           </div>
 
+          {/* Weight Unit */}
           <div className="space-y-2">
             <Label>Weight Unit</Label>
             <div className="grid grid-cols-2 gap-2">
               {WEIGHT_UNITS.map((unit) => (
                 <button
                   key={unit.value}
-                  onClick={() =>
-                    setProfile({ ...profile, weight_unit: unit.value })
-                  }
-                  className={`rounded-lg border px-3 py-2 text-center text-sm transition-colors ${
-                    profile.weight_unit === unit.value
-                      ? "border-primary bg-primary/10 text-primary"
-                      : "border-border hover:border-muted-foreground"
+                  onClick={() => setProfile({ ...profile, weight_unit: unit.value })}
+                  className={`${pillBase} text-center ${
+                    profile.weight_unit === unit.value ? pillActive : pillInactive
                   }`}
                 >
                   {unit.label}
@@ -277,78 +332,75 @@ export default function ProfilePage() {
               ))}
             </div>
           </div>
+
         </CardContent>
       </Card>
 
-      {message && (
-        <p
-          className={`text-center text-sm ${
-            message.includes("Failed") ? "text-destructive" : "text-primary"
-          }`}
-        >
-          {message}
-        </p>
-      )}
+      {/* Actions */}
+      <div className="space-y-3">
+        <Button onClick={handleSave} className="w-full" disabled={saving}>
+          <Save className="mr-2 h-4 w-4" />
+          {saving ? "Saving…" : "Save Profile"}
+        </Button>
 
-      <Button onClick={handleSave} className="w-full" disabled={saving}>
-        <Save className="mr-2 h-4 w-4" />
-        {saving ? "Saving..." : "Save Profile"}
-      </Button>
+        {message && (
+          <p
+            className={`text-center text-sm ${
+              message.includes("Failed") ? "text-destructive" : "text-primary"
+            }`}
+          >
+            {message}
+          </p>
+        )}
 
-      <Separator />
-
-      {isAnonymous ? (
-        <Dialog>
-          <DialogTrigger
-            render={
-              <Button
-                variant="outline"
-                className="w-full text-destructive hover:text-destructive"
-              />
-            }
+        {isAnonymous ? (
+          <Dialog>
+            <DialogTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  className="w-full text-muted-foreground hover:text-destructive"
+                />
+              }
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              Sign Out
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Sign out as guest?</DialogTitle>
+                <DialogDescription>
+                  All your data (programs, workouts, progress) will be permanently
+                  lost. Create an account first to save your progress.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <DialogClose render={<Button variant="outline" />}>
+                  Cancel
+                </DialogClose>
+                <Link href="/profile/upgrade">
+                  <Button>
+                    <UserPlus className="mr-1.5 h-4 w-4" />
+                    Create Account
+                  </Button>
+                </Link>
+                <Button variant="destructive" onClick={handleSignOut}>
+                  Sign Out Anyway
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        ) : (
+          <Button
+            variant="ghost"
+            onClick={handleSignOut}
+            className="w-full text-muted-foreground hover:text-destructive"
           >
             <LogOut className="mr-2 h-4 w-4" />
             Sign Out
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Sign out as guest?</DialogTitle>
-              <DialogDescription>
-                All your data (programs, workouts, progress) will be permanently
-                lost. Create an account first to save your progress.
-              </DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-              <DialogClose
-                render={<Button variant="outline" />}
-              >
-                Cancel
-              </DialogClose>
-              <Link href="/profile/upgrade">
-                <Button>
-                  <UserPlus className="mr-1.5 h-4 w-4" />
-                  Create Account
-                </Button>
-              </Link>
-              <Button
-                variant="destructive"
-                onClick={handleSignOut}
-              >
-                Sign Out Anyway
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      ) : (
-        <Button
-          variant="outline"
-          onClick={handleSignOut}
-          className="w-full text-destructive hover:text-destructive"
-        >
-          <LogOut className="mr-2 h-4 w-4" />
-          Sign Out
-        </Button>
-      )}
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
