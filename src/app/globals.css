@@ -17,6 +17,8 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
+  --color-chart-7: var(--chart-7);
+  --color-chart-6: var(--chart-6);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
@@ -111,6 +113,17 @@
   --chart-3: oklch(0.65 0.2 25);
   --chart-4: oklch(0.7 0.16 200);
   --chart-5: oklch(0.6 0.12 240);
+  --chart-6: oklch(0.72 0.16 10);
+  --chart-7: oklch(0.58 0.09 245);
+  --chart-1-soft: oklch(0.58 0.24 275 / 14%);
+  --chart-2-soft: oklch(0.72 0.18 320 / 14%);
+  --chart-3-soft: oklch(0.65 0.2 25 / 14%);
+  --chart-4-soft: oklch(0.7 0.16 200 / 14%);
+  --chart-5-soft: oklch(0.6 0.12 240 / 14%);
+  --chart-grid: oklch(0.85 0.05 270 / 6%);
+  --chart-grid-2: oklch(0.85 0.05 270 / 10%);
+  --chart-axis: oklch(0.85 0.05 270 / 18%);
+  --chart-zero: oklch(0.85 0.05 270 / 28%);
   --sidebar: oklch(0.22 0.032 270);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.58 0.24 275);
@@ -123,8 +136,52 @@
   --shadow-stripe-standard: 0 15px 35px 0 rgb(23 23 23 / 0.5), 0 3px 10px 0 rgb(0 0 0 / 0.35);
   --shadow-stripe-elevated: 0 30px 45px -30px rgb(50 50 93 / 0.55), 0 18px 36px -18px rgb(0 0 0 / 0.45);
   --shadow-stripe-deep: 0 14px 21px -14px rgb(3 3 39 / 0.6), 0 8px 17px -8px rgb(0 0 0 / 0.5);
+  --primary-tint: oklch(0.78 0.13 280);
+  --primary-hover: oklch(0.52 0.22 275);
   --gradient-hero: radial-gradient(ellipse at top, oklch(0.58 0.24 275 / 0.25), transparent 60%);
   --gradient-accent: linear-gradient(135deg, oklch(0.58 0.24 275 / 0.18), oklch(0.72 0.18 320 / 0.12));
+  --gradient-text-hero: linear-gradient(135deg, oklch(0.58 0.24 275), oklch(0.72 0.18 300), oklch(0.72 0.12 310));
+
+  /* Muscle group three-tone families: main (dot/line), soft (badge bg), ink (badge text) */
+  --mg-chest: #f87171;
+  --mg-chest-soft: rgba(248, 113, 113, 0.14);
+  --mg-chest-ink: #fca5a5;
+
+  --mg-back: #818cf8;
+  --mg-back-soft: rgba(129, 140, 248, 0.14);
+  --mg-back-ink: #a5b4fc;
+
+  --mg-shoulders: #fbbf24;
+  --mg-shoulders-soft: rgba(251, 191, 36, 0.14);
+  --mg-shoulders-ink: #fcd34d;
+
+  --mg-biceps: #e879f9;
+  --mg-biceps-soft: rgba(232, 121, 249, 0.14);
+  --mg-biceps-ink: #f0abfc;
+
+  --mg-triceps: #22d3ee;
+  --mg-triceps-soft: rgba(34, 211, 238, 0.14);
+  --mg-triceps-ink: #67e8f9;
+
+  --mg-quads: #4ade80;
+  --mg-quads-soft: rgba(74, 222, 128, 0.14);
+  --mg-quads-ink: #86efac;
+
+  --mg-hamstrings: #fb923c;
+  --mg-hamstrings-soft: rgba(251, 146, 60, 0.14);
+  --mg-hamstrings-ink: #fdba74;
+
+  --mg-glutes: #fb7185;
+  --mg-glutes-soft: rgba(251, 113, 133, 0.14);
+  --mg-glutes-ink: #fda4af;
+
+  --mg-calves: #2dd4bf;
+  --mg-calves-soft: rgba(45, 212, 191, 0.14);
+  --mg-calves-ink: #5eead4;
+
+  --mg-core: #fde047;
+  --mg-core-soft: rgba(253, 224, 71, 0.14);
+  --mg-core-ink: #fef08a;
 }
 
 .track-surface {
