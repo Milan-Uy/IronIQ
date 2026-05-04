@@ -543,7 +543,7 @@ export default function LandingPage() {
   ];
 
   const footerLinks = [
-    { h: "Product",   l: ["The Coach", "Programs", "Tracking", "Insights", "Plate Calc"] },
+    { h: "Product",   l: ["The Coach", "Programs", "Tracking", "Insights"] },
     { h: "Company",   l: ["About", "Field notes", "Careers", "Press kit"] },
     { h: "Resources", l: ["Help center", "API", "Status", "Changelog"] },
   ];
@@ -657,33 +657,7 @@ export default function LandingPage() {
         >
           {/* LEFT — copy */}
           <div>
-            {/* Eyebrow */}
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 32 }}>
-              <span
-                style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: 999,
-                  background: "#7c6aef",
-                  boxShadow: "0 0 12px #7c6aef",
-                  display: "inline-block",
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  color: "#a99afb",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.18em",
-                  fontWeight: 500,
-                }}
-              >
-                v.4 · Spring 2026 release
-              </span>
-            </div>
-
-            {/* Headline */}
+              {/* Headline */}
             <h1
               style={{
                 margin: 0,
@@ -861,15 +835,7 @@ export default function LandingPage() {
           <span style={{ color: "#a99afb" }}>● Live</span>
           <span>RPE auto-adjust</span>
           <span style={{ color: "#3a3548" }}>/</span>
-          <span>Tempo deload</span>
-          <span style={{ color: "#3a3548" }}>/</span>
-          <span>Recovery-aware loading</span>
-          <span style={{ color: "#3a3548" }}>/</span>
           <span>Fatigue trend</span>
-          <span style={{ color: "#3a3548" }}>/</span>
-          <span>Plate calculator</span>
-          <span style={{ color: "#3a3548" }}>/</span>
-          <span style={{ color: "#a99afb" }}>● Form coach (beta)</span>
         </div>
       </div>
 
@@ -1298,7 +1264,6 @@ export default function LandingPage() {
           }}
         >
           <span>© 2026 IRONIQ INC. — ALL RIGHTS RESERVED.</span>
-          <span>v4.2.1 — SPRING RELEASE</span>
         </div>
       </footer>
     </div>
