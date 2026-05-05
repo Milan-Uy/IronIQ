@@ -529,10 +529,10 @@ export default function LandingPage() {
   ];
 
   const principles = [
-    { n: "01", t: "Reads RPE in real time",  d: "Set felt easier than the last? Next set's load nudges up." },
-    { n: "02", t: "Watches the week",         d: "Tracks volume, fatigue, and sleep — and dials sessions accordingly." },
-    { n: "03", t: "Owns the long arc",        d: "Eight-week blocks with deloads, peaks, and PR windows planned." },
-    { n: "04", t: "Speaks gym, not jargon",   d: "Coaching cues land like a real person texting you back." },
+    { n: "01", t: "Logs every set",          d: "Weight, reps, and RPE — every set is captured and visible to your coach." },
+    { n: "02", t: "Tracks your volume",      d: "See weekly sets per muscle group, progression trends, and where you're stalling." },
+    { n: "03", t: "Structures your program", d: "Build programs with custom days and exercises, then track every session against your plan." },
+    { n: "04", t: "Speaks gym, not jargon",  d: "Coaching cues land like a real person texting you back." },
   ];
 
   const signalList = [
