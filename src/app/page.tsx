@@ -1122,19 +1122,8 @@ export default function LandingPage() {
                 justifyContent: "center",
               }}
             >
-              I already train here
+              Sign in
             </Link>
-            <div
-              style={{
-                fontSize: 12,
-                color: "#8b8595",
-                fontFamily: "var(--font-mono)",
-                marginTop: 4,
-                textAlign: "center",
-              }}
-            >
-              no card · 14-day full access · cancel in two taps
-            </div>
           </div>
         </div>
       </section>
