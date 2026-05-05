@@ -581,9 +581,8 @@ export default function LandingPage() {
             <span style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.01em", color: "#fafafa" }}>IronIQ</span>
           </Link>
           <div style={{ display: "flex", alignItems: "center", gap: 24, fontSize: 13 }}>
-            <span style={{ color: "#a8a3b3" }}>The Coach</span>
-            <span style={{ color: "#a8a3b3" }}>Programs</span>
-            <span style={{ color: "#a8a3b3", whiteSpace: "nowrap" }}>Field notes</span>
+            <Link href="/coach" style={{ color: "#a8a3b3", textDecoration: "none" }}>The Coach</Link>
+            <Link href="/program" style={{ color: "#a8a3b3", textDecoration: "none" }}>Programs</Link>
             <Link href="/login" style={{ color: "#a8a3b3", textDecoration: "none", whiteSpace: "nowrap" }}>Sign in</Link>
             <Link
               href="/signup"
