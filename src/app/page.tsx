@@ -543,9 +543,7 @@ export default function LandingPage() {
   ];
 
   const footerLinks = [
-    { h: "Product",   l: ["The Coach", "Programs", "Tracking", "Insights"] },
-    { h: "Company",   l: ["About", "Field notes", "Careers", "Press kit"] },
-    { h: "Resources", l: ["Help center", "API", "Status", "Changelog"] },
+    { h: "Product", l: ["The Coach", "Programs", "Tracking", "Insights"] },
   ];
 
   return (
@@ -1154,7 +1152,7 @@ export default function LandingPage() {
             margin: "0 auto",
             padding: "48px 28px 32px",
             display: "grid",
-            gridTemplateColumns: "1.5fr 1fr 1fr 1fr",
+            gridTemplateColumns: "1.5fr 1fr",
             gap: 40,
           }}
         >
