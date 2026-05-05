@@ -1059,65 +1059,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── TESTIMONIAL ── */}
-      <section style={{ borderBottom: "1px solid rgba(217,207,237,0.06)" }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto", padding: "112px 28px", textAlign: "center" }}>
-          <div
-            aria-hidden
-            style={{
-              fontFamily: "Georgia, serif",
-              fontSize: 96,
-              color: "#7c6aef",
-              lineHeight: 0.6,
-              height: 48,
-              marginBottom: 24,
-              opacity: 0.6,
-            }}
-          >
-            &ldquo;
-          </div>
-          <p
-            style={{
-              margin: 0,
-              fontSize: 36,
-              fontWeight: 300,
-              lineHeight: 1.25,
-              letterSpacing: "-0.02em",
-              color: "#fafafa",
-            }}
-          >
-            I dropped my coach after 6 years.{" "}
-            <span style={{ color: "#c4b5fd", fontStyle: "italic" }}>
-              IronIQ catches things he never did
-            </span>{" "}
-            — recovery dips, sneaky volume creep, the day my squat just isn&apos;t there.
-          </p>
-          <div style={{ marginTop: 32, display: "inline-flex", alignItems: "center", gap: 12 }}>
-            <div
-              style={{
-                width: 36,
-                height: 36,
-                borderRadius: "50%",
-                background: "linear-gradient(135deg, #ef5050, #c084fc)",
-              }}
-            />
-            <div style={{ textAlign: "left" }}>
-              <div style={{ fontSize: 14, color: "#fafafa", fontWeight: 500 }}>Marcus Holloway</div>
-              <div
-                style={{
-                  fontSize: 12,
-                  color: "#8b8595",
-                  fontFamily: "var(--font-mono)",
-                  letterSpacing: "0.04em",
-                }}
-              >
-                595 lb DL · IronIQ user since &apos;24
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── BIG CTA STRIP ── */}
       <section>
         <div
