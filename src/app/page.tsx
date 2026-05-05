@@ -730,76 +730,12 @@ export default function LandingPage() {
               </Link>
             </div>
 
-            {/* Spec strip */}
-            <div
-              style={{
-                marginTop: 56,
-                paddingTop: 24,
-                borderTop: "1px solid rgba(217,207,237,0.07)",
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: 24,
-              }}
-            >
-              {[
-                { v: "47k",  l: "Lifters training" },
-                { v: "2.3M", l: "Sets logged · last 30d" },
-                { v: "+18%", l: "Avg 12-wk strength gain" },
-              ].map((s) => (
-                <div key={s.l}>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 26,
-                      fontWeight: 400,
-                      color: "#fafafa",
-                      letterSpacing: "-0.02em",
-                      fontFeatureSettings: "'tnum'",
-                    }}
-                  >
-                    {s.v}
-                  </div>
-                  <div style={{ fontSize: 11, color: "#8b8595", marginTop: 4, letterSpacing: "0.04em" }}>{s.l}</div>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* RIGHT — product mockup */}
           <HeroProductVisual />
         </div>
       </section>
-
-      {/* ── FEATURE STRIP ── */}
-      <div
-        style={{
-          borderBottom: "1px solid rgba(217,207,237,0.06)",
-          background: "rgba(217,207,237,0.015)",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1240,
-            margin: "0 auto",
-            padding: "18px 28px",
-            display: "flex",
-            alignItems: "center",
-            gap: 48,
-            fontFamily: "var(--font-mono)",
-            fontSize: 11,
-            color: "#7a7585",
-            textTransform: "uppercase",
-            letterSpacing: "0.16em",
-            flexWrap: "wrap",
-          }}
-        >
-          <span style={{ color: "#a99afb" }}>● Live</span>
-          <span>RPE auto-adjust</span>
-          <span style={{ color: "#3a3548" }}>/</span>
-          <span>Fatigue trend</span>
-        </div>
-      </div>
 
       {/* ── §01 PRINCIPLES ── */}
       <section style={{ borderBottom: "1px solid rgba(217,207,237,0.06)" }}>
