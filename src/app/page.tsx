@@ -728,41 +728,6 @@ export default function LandingPage() {
               >
                 Start your first block →
               </Link>
-              <Link
-                href="/login"
-                style={{
-                  height: 48,
-                  padding: "0 18px",
-                  borderRadius: 12,
-                  fontWeight: 500,
-                  fontSize: 14,
-                  color: "#fafafa",
-                  border: "1px solid rgba(217,207,237,0.14)",
-                  background: "rgba(217,207,237,0.03)",
-                  textDecoration: "none",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  whiteSpace: "nowrap",
-                }}
-              >
-                <span
-                  style={{
-                    width: 18,
-                    height: 18,
-                    borderRadius: 999,
-                    background: "#fafafa",
-                    color: "#08080d",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 9,
-                  }}
-                >
-                  ▶
-                </span>
-                Watch a session
-              </Link>
             </div>
 
             {/* Spec strip */}
