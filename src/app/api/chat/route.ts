@@ -7,6 +7,7 @@ import { buildUserContext } from "@/lib/ai/context";
 import { buildTools } from "@/lib/ai/tools";
 import { saveChatMessage } from "@/lib/supabase/chat";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { retrieveKnowledge } from "@/lib/ai/retrieval";
 
 export const maxDuration = 30;
 
@@ -26,18 +27,21 @@ export async function POST(req: Request) {
 
   // Save the last user message
   const lastUserMessage = [...uiMessages].reverse().find((m) => m.role === "user");
-  if (lastUserMessage) {
-    const text = lastUserMessage.parts
-      .filter((p) => p.type === "text")
-      .map((p) => (p as { type: "text"; text: string }).text)
-      .join("");
-    if (text) {
-      await saveChatMessage(user.id, "user", text).catch(() => {});
-    }
+  const lastUserText = lastUserMessage
+    ? lastUserMessage.parts
+        .filter((p) => p.type === "text")
+        .map((p) => (p as { type: "text"; text: string }).text)
+        .join("")
+    : "";
+  if (lastUserText) {
+    await saveChatMessage(user.id, "user", lastUserText).catch(() => {});
   }
 
-  const [context] = await Promise.all([buildUserContext(user.id)]);
-  const systemPrompt = buildSystemPrompt(context);
+  const [context, knowledge] = await Promise.all([
+    buildUserContext(user.id),
+    retrieveKnowledge(lastUserText),
+  ]);
+  const systemPrompt = buildSystemPrompt(context, knowledge);
   const tools = buildTools(user.id);
   // Keep only the last 10 messages to limit token usage
   const recentMessages = uiMessages.slice(-10);

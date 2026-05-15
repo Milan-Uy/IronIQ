@@ -1,9 +1,5 @@
-import { createGroq } from "@ai-sdk/groq";
-
-const groq = createGroq({
-  apiKey: process.env.GROQ_API_KEY ?? "",
-});
+import { google } from "@ai-sdk/google";
 
 export function getModel() {
-  return groq("llama-3.3-70b-versatile");
+  return google("gemini-2.5-flash");
 }
