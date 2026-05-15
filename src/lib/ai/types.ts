@@ -1,3 +1,9 @@
+export interface KnowledgeChunk {
+  content: string;
+  source: string;
+  score: number;
+}
+
 export interface UserContext {
   userId: string;
   profile: {
