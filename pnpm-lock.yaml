@@ -17,6 +17,9 @@ importers:
       '@base-ui/react':
         specifier: ^1.3.0
         version: 1.3.0(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@google/generative-ai':
+        specifier: ^0.24.0
+        version: 0.24.1
       '@langchain/community':
         specifier: ^1.1.28
         version: 1.1.28(@browserbasehq/sdk@2.11.0)(@browserbasehq/stagehand@1.14.0(@playwright/test@1.60.0)(deepmerge@4.3.1)(dotenv@17.3.1)(openai@6.37.0(ws@8.20.0)(zod@4.3.6))(zod@4.3.6))(@ibm-cloud/watsonx-ai@1.7.12)(@langchain/core@1.1.46(@opentelemetry/api@1.9.0)(openai@6.37.0(ws@8.20.0)(zod@4.3.6))(ws@8.20.0))(@opentelemetry/api@1.9.0)(@supabase/supabase-js@2.99.3)(ibm-cloud-sdk-core@5.4.19)(ignore@7.0.5)(jsonwebtoken@9.0.3)(openai@6.37.0(ws@8.20.0)(zod@4.3.6))(playwright@1.60.0)(ws@8.20.0)
@@ -6710,7 +6713,7 @@ snapshots:
       jsonwebtoken: 9.0.3
       load-esm: 1.0.3
       mime-types: 2.1.35
-      retry-axios: 2.6.0(axios@1.15.2(debug@4.3.4))
+      retry-axios: 2.6.0(axios@1.15.2)
       tough-cookie: 4.1.3
     transitivePeerDependencies:
       - supports-color
@@ -7612,7 +7615,7 @@ snapshots:
       onetime: 7.0.0
       signal-exit: 4.1.0
 
-  retry-axios@2.6.0(axios@1.15.2(debug@4.3.4)):
+  retry-axios@2.6.0(axios@1.15.2):
     dependencies:
       axios: 1.15.2(debug@4.3.4)
 
