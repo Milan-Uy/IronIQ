@@ -1,7 +1,24 @@
 import { createClient } from "@supabase/supabase-js";
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
-import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
+import { Embeddings } from "@langchain/core/embeddings";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { KnowledgeChunk } from "@/lib/ai/types";
+
+class GeminiEmbeddings768 extends Embeddings {
+  private model: ReturnType<GoogleGenerativeAI["getGenerativeModel"]>;
+  constructor(apiKey: string) {
+    super({});
+    this.model = new GoogleGenerativeAI(apiKey).getGenerativeModel({ model: "gemini-embedding-001" });
+  }
+  async embedQuery(text: string) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const r = await this.model.embedContent({ content: { parts: [{ text }], role: "user" }, outputDimensionality: 768 } as any);
+    return r.embedding.values;
+  }
+  async embedDocuments(texts: string[]) {
+    return Promise.all(texts.map((t) => this.embedQuery(t)));
+  }
+}
 
 let vectorStore: SupabaseVectorStore | null = null;
 
@@ -13,10 +30,7 @@ function getVectorStore(): SupabaseVectorStore {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 
-  const embeddings = new GoogleGenerativeAIEmbeddings({
-    model: "text-embedding-004",
-    apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-  });
+  const embeddings = new GeminiEmbeddings768(process.env.GOOGLE_GENERATIVE_AI_API_KEY!);
 
   vectorStore = new SupabaseVectorStore(embeddings, {
     client: supabase,
