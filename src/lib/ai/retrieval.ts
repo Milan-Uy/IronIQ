@@ -14,7 +14,7 @@ function getVectorStore(): SupabaseVectorStore {
   );
 
   const embeddings = new GoogleGenerativeAIEmbeddings({
-    model: "gemini-embedding-2-preview",
+    model: "text-embedding-004",
     apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
   });
 

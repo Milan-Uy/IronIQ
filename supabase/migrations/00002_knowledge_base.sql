@@ -6,12 +6,12 @@ create table knowledge_documents (
   id bigserial primary key,
   content text,
   metadata jsonb,
-  embedding vector(3072)
+  embedding vector(768)
 );
 
 -- Match function for semantic search
 create or replace function match_knowledge_documents(
-  query_embedding vector(3072),
+  query_embedding vector(768),
   match_count int default 4,
   filter jsonb default '{}'
 )
