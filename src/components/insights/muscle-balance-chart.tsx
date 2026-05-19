@@ -15,8 +15,8 @@ interface MuscleVolume {
 }
 
 const tooltipStyle = {
-  backgroundColor: "hsl(var(--card))",
-  border: "1px solid hsl(var(--primary) / 0.3)",
+  backgroundColor: "var(--card)",
+  border: "1px solid color-mix(in oklch, var(--primary) 30%, transparent)",
   borderRadius: 6,
   fontSize: 12,
   boxShadow: "var(--shadow-stripe-elevated)",
@@ -42,20 +42,20 @@ export function MuscleBalanceChart({ data }: { data: MuscleVolume[] }) {
       >
         <defs>
           <linearGradient id="muscleFill" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 0.9 }} />
-            <stop offset="100%" style={{ stopColor: "hsl(var(--chart-2))", stopOpacity: 0.75 }} />
+            <stop offset="0%" style={{ stopColor: "var(--primary)", stopOpacity: 0.9 }} />
+            <stop offset="100%" style={{ stopColor: "var(--chart-2)", stopOpacity: 0.75 }} />
           </linearGradient>
         </defs>
         <XAxis
           type="number"
-          tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
+          tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
           axisLine={false}
           tickLine={false}
         />
         <YAxis
           type="category"
           dataKey="muscleGroup"
-          tick={{ fontSize: 11, fill: "hsl(var(--foreground))" }}
+          tick={{ fontSize: 11, fill: "var(--foreground)" }}
           axisLine={false}
           tickLine={false}
           width={80}
@@ -64,7 +64,7 @@ export function MuscleBalanceChart({ data }: { data: MuscleVolume[] }) {
         <Tooltip
           contentStyle={tooltipStyle}
           formatter={(value) => [`${value} sets`, "Volume"]}
-          cursor={{ fill: "hsl(var(--muted))" }}
+          cursor={{ fill: "var(--muted)", fillOpacity: 0.35 }}
         />
         <Bar dataKey="sets" fill="url(#muscleFill)" radius={[0, 4, 4, 0]} />
       </BarChart>

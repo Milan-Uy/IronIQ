@@ -70,7 +70,7 @@ export function SessionDetailView({ session }: { session: SessionDetail }) {
         {session.notes && (
           <div
             className="flex items-start gap-2 rounded-lg border border-border/60 px-3 py-2 text-sm"
-            style={{ background: "var(--gradient-accent), hsl(var(--muted))" }}
+            style={{ background: "var(--gradient-accent), var(--muted)" }}
           >
             <StickyNote className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
             <span>{session.notes}</span>

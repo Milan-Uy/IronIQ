@@ -73,25 +73,25 @@ export function ProgressionCard({ exerciseNames }: { exerciseNames: string[] }) 
           <AreaChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
             <defs>
               <linearGradient id="progressionFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 0.3 }} />
-                <stop offset="100%" style={{ stopColor: "hsl(var(--primary))", stopOpacity: 0 }} />
+                <stop offset="0%" style={{ stopColor: "var(--primary)", stopOpacity: 0.3 }} />
+                <stop offset="100%" style={{ stopColor: "var(--primary)", stopOpacity: 0 }} />
               </linearGradient>
             </defs>
             <XAxis
               dataKey="sessionDate"
-              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
+              tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
               axisLine={false}
               tickLine={false}
             />
             <YAxis
-              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
+              tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
               axisLine={false}
               tickLine={false}
             />
             <Tooltip
               contentStyle={{
-                backgroundColor: "hsl(var(--card))",
-                border: "1px solid hsl(var(--primary) / 0.3)",
+                backgroundColor: "var(--card)",
+                border: "1px solid color-mix(in oklch, var(--primary) 30%, transparent)",
                 borderRadius: 6,
                 fontSize: 12,
                 boxShadow: "var(--shadow-stripe-elevated)",
@@ -101,10 +101,10 @@ export function ProgressionCard({ exerciseNames }: { exerciseNames: string[] }) 
             <Area
               type="monotone"
               dataKey="maxWeight"
-              stroke="hsl(var(--primary))"
+              stroke="var(--primary)"
               strokeWidth={2}
               fill="url(#progressionFill)"
-              dot={{ r: 4, fill: "hsl(var(--primary))", strokeWidth: 0 }}
+              dot={{ r: 4, fill: "var(--primary)", strokeWidth: 0 }}
               activeDot={{ r: 5 }}
             />
           </AreaChart>
