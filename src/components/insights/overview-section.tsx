@@ -37,7 +37,7 @@ export function OverviewSection({
       <div className="grid grid-cols-2 gap-3">
         <div
           className="rounded-lg border border-border/60 p-5 shadow-[var(--shadow-stripe-elevated)]"
-          style={{ background: "var(--gradient-accent), hsl(var(--card))" }}
+          style={{ background: "var(--gradient-accent), var(--card)" }}
         >
           <div className="tnum tight-hero text-[36px] font-[300] leading-none text-foreground">
             {totalSessionsThisWeek}
@@ -48,7 +48,7 @@ export function OverviewSection({
         </div>
         <div
           className="rounded-lg border border-border/60 p-5 shadow-[var(--shadow-stripe-elevated)]"
-          style={{ background: "var(--gradient-accent), hsl(var(--card))" }}
+          style={{ background: "var(--gradient-accent), var(--card)" }}
         >
           <div className="tnum tight-hero text-[36px] font-[300] leading-none text-foreground">
             {totalVolumeThisWeek >= 1000
