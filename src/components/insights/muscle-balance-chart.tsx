@@ -15,7 +15,7 @@ interface MuscleVolume {
 }
 
 const tooltipStyle = {
-  backgroundColor: "var(--card)",
+  backgroundColor: "var(--chart-tooltip-bg)",
   border: "1px solid color-mix(in oklch, var(--primary) 30%, transparent)",
   borderRadius: 6,
   fontSize: 12,

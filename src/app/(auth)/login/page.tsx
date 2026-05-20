@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Logo } from "@/components/logo";
 import { createClient } from "@/lib/supabase/client";
+import { LoginTransition } from "@/components/auth/login-transition";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showTransition, setShowTransition] = useState(false);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -34,6 +36,8 @@ export default function LoginPage() {
       return;
     }
 
+    setShowTransition(true);
+    await new Promise((r) => setTimeout(r, 2800));
     router.push("/coach");
     router.refresh();
   }
@@ -66,6 +70,10 @@ export default function LoginPage() {
   }
 
   return (
+    <>
+      {showTransition && (
+        <LoginTransition onComplete={() => router.push("/coach")} />
+      )}
     <div className="space-y-6">
       <Logo size="lg" />
       <p className="text-center text-sm text-muted-foreground">
@@ -176,5 +184,6 @@ export default function LoginPage() {
         </CardFooter>
       </Card>
     </div>
+    </>
   );
 }

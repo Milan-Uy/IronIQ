@@ -108,18 +108,21 @@
   --border: oklch(0.85 0.05 270 / 12%);
   --input: oklch(0.85 0.05 270 / 16%);
   --ring: oklch(0.58 0.24 275);
-  --chart-1: oklch(0.58 0.24 275);
-  --chart-2: oklch(0.72 0.18 320);
-  --chart-3: oklch(0.65 0.2 25);
-  --chart-4: oklch(0.7 0.16 200);
-  --chart-5: oklch(0.6 0.12 240);
-  --chart-6: oklch(0.72 0.16 10);
-  --chart-7: oklch(0.58 0.09 245);
-  --chart-1-soft: oklch(0.58 0.24 275 / 14%);
-  --chart-2-soft: oklch(0.72 0.18 320 / 14%);
-  --chart-3-soft: oklch(0.65 0.2 25 / 14%);
-  --chart-4-soft: oklch(0.7 0.16 200 / 14%);
-  --chart-5-soft: oklch(0.6 0.12 240 / 14%);
+  --chart-1: #7c6aef;   /* violet  · primary   */
+  --chart-2: #d774d2;   /* magenta · secondary  */
+  --chart-3: #f59e0b;   /* amber   · highlight  */
+  --chart-4: #34d399;   /* mint    · positive   */
+  --chart-5: #5fb6c8;   /* teal    · cool       */
+  --chart-6: #fb7185;   /* rose    · alert      */
+  --chart-7: #6f8eb8;   /* slate   · neutral    */
+  --chart-1-soft: rgba(124, 106, 239, 0.14);
+  --chart-2-soft: rgba(215, 116, 210, 0.14);
+  --chart-3-soft: rgba(245, 158,  11, 0.14);
+  --chart-4-soft: rgba( 52, 211, 153, 0.14);
+  --chart-5-soft: rgba( 95, 182, 200, 0.14);
+  --chart-6-soft: rgba(251, 113, 133, 0.14);
+  --chart-7-soft: rgba(111, 142, 184, 0.16);
+  --chart-tooltip-bg: rgba(20, 18, 32, 0.92);
   --chart-grid: oklch(0.85 0.05 270 / 6%);
   --chart-grid-2: oklch(0.85 0.05 270 / 10%);
   --chart-axis: oklch(0.85 0.05 270 / 18%);
@@ -242,4 +245,37 @@
 .recharts-cartesian-axis-tick-value {
   font-feature-settings: "tnum";
   font-variant-numeric: tabular-nums;
+}
+
+/* ── IronIQ motion keyframes ───────────────────────────────── */
+@keyframes ironiq-pulse-dot  { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.55;transform:scale(.82)} }
+@keyframes ironiq-pulse-ring { 0%{transform:scale(.6);opacity:.7} 100%{transform:scale(2.4);opacity:0} }
+@keyframes ironiq-drift      { 0%,100%{transform:translate3d(0,0,0)} 50%{transform:translate3d(-2%,1%,0)} }
+@keyframes ironiq-marquee    { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+@keyframes ironiq-rep-in     { 0%{transform:scale(.6);opacity:0} 60%{transform:scale(1.15);opacity:1} 100%{transform:scale(1)} }
+@keyframes ironiq-bar-grow   { 0%{transform:scaleX(0)} 100%{transform:scaleX(1)} }
+@keyframes ironiq-zap-charge {
+  0%   { filter: drop-shadow(0 0 0 #7c6aef); transform: scale(1); }
+  45%  { filter: drop-shadow(0 0 30px #7c6aef) drop-shadow(0 0 60px #7c6aef); transform: scale(1.08); }
+  100% { filter: drop-shadow(0 0 10px #7c6aef); transform: scale(1); }
+}
+@keyframes ironiq-ring-spin  { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes ironiq-scan       { 0% { transform: translateY(-100%); } 100% { transform: translateY(120%); } }
+@keyframes ironiq-fade-in    { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes ironiq-spinner    { to { transform: rotate(360deg); } }
+@keyframes ironiq-shimmer-cta {
+  0%, 70%, 100% { background-position: -120% 0; }
+  85%           { background-position: 220% 0; }
+}
+
+.ironiq-tick-1 { animation: ironiq-rep-in .55s cubic-bezier(.16,.84,.36,1) .8s  both; }
+.ironiq-tick-2 { animation: ironiq-rep-in .55s cubic-bezier(.16,.84,.36,1) 1.15s both; }
+.ironiq-tick-3 { animation: ironiq-rep-in .55s cubic-bezier(.16,.84,.36,1) 1.5s  both; }
+
+.ironiq-cta-shimmer {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%);
+  background-size: 220% 100%;
+  animation: ironiq-shimmer-cta 4.2s ease-in-out infinite;
+  mix-blend-mode: overlay;
 }
