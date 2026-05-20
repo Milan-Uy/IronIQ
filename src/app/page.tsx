@@ -1,5 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { Zap } from "lucide-react";
+import {
+  MountReveal,
+  Reveal,
+  CountUp,
+  PulseDot,
+  MarqueeStrip,
+  AnimatedLineChart,
+} from "@/components/marketing/animations";
 
 // ── Logo mark ──────────────────────────────────────────────────
 function LogoMark({ size = 26 }: { size?: number }) {
@@ -53,240 +63,249 @@ function HeroProductVisual() {
       />
 
       {/* Phone shell */}
-      <div
-        style={{
-          position: "relative",
-          width: 300,
-          height: 540,
-          borderRadius: 44,
-          padding: 4,
-          background: "linear-gradient(160deg, rgba(124,106,239,0.6), rgba(60,55,80,0.4))",
-          boxShadow: "0 60px 120px -30px rgba(124,106,239,0.5), 0 30px 60px -15px rgba(0,0,0,0.6)",
-        }}
-      >
+      <MountReveal delay={0.3} y={32} duration={1.1} style={{ position: "relative" }}>
         <div
           style={{
-            width: "100%",
-            height: "100%",
-            borderRadius: 40,
-            overflow: "hidden",
-            background: "#131321",
-            padding: "20px 18px",
-            display: "flex",
-            flexDirection: "column",
-            gap: 14,
-            fontFamily: "var(--font-sans)",
+            width: 300,
+            height: 540,
+            borderRadius: 44,
+            padding: 4,
+            background: "linear-gradient(160deg, rgba(124,106,239,0.6), rgba(60,55,80,0.4))",
+            boxShadow: "0 60px 120px -30px rgba(124,106,239,0.5), 0 30px 60px -15px rgba(0,0,0,0.6)",
           }}
         >
-          {/* Status bar */}
-          <div className="flex justify-between items-center px-2 font-mono text-[11px] text-white/40">
-            <span>9:41</span>
-            <span>● ● ●</span>
-          </div>
-
-          {/* Workout header */}
-          <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#a99afb]">
-              Today · Week 3 / 8
-            </div>
-            <div className="text-[18px] font-medium mt-0.5 text-white leading-tight tracking-tight">
-              Leg Day<br />Hypertrophy
-            </div>
-            <div className="font-mono text-[12px] text-white/40 mt-0.5">00:24:18 elapsed</div>
-          </div>
-
-          {/* Active exercise card */}
           <div
             style={{
-              background: "linear-gradient(135deg, rgba(124,106,239,0.15), rgba(124,106,239,0.05))",
-              border: "1px solid rgba(124,106,239,0.3)",
-              borderRadius: 14,
-              padding: "14px 14px 12px",
+              width: "100%",
+              height: "100%",
+              borderRadius: 40,
+              overflow: "hidden",
+              background: "#131321",
+              padding: "20px 18px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 14,
+              fontFamily: "var(--font-sans)",
             }}
           >
-            <div className="flex justify-between items-start">
-              <div>
-                <div className="text-[14px] font-medium text-white">Hack Squat</div>
-                <div className="font-mono text-[10px] text-white/40 mt-0.5 tracking-[0.04em]">
-                  4 × 8–10 · 120s rest
-                </div>
+            {/* Status bar */}
+            <div className="flex justify-between items-center px-2 font-mono text-[11px] text-white/40">
+              <span>9:41</span>
+              <span>● ● ●</span>
+            </div>
+
+            {/* Workout header */}
+            <div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#a99afb]">
+                Today · Week 3 / 8
               </div>
-              <span
+              <div className="text-[18px] font-medium mt-0.5 text-white leading-tight tracking-tight">
+                Leg Day<br />Hypertrophy
+              </div>
+              <div className="font-mono text-[12px] text-white/40 mt-0.5">00:24:18 elapsed</div>
+            </div>
+
+            {/* Active exercise card */}
+            <div
+              style={{
+                background: "linear-gradient(135deg, rgba(124,106,239,0.15), rgba(124,106,239,0.05))",
+                border: "1px solid rgba(124,106,239,0.3)",
+                borderRadius: 14,
+                padding: "14px 14px 12px",
+              }}
+            >
+              <div className="flex justify-between items-start">
+                <div>
+                  <div className="text-[14px] font-medium text-white">Hack Squat</div>
+                  <div className="font-mono text-[10px] text-white/40 mt-0.5 tracking-[0.04em]">
+                    4 × 8–10 · 120s rest
+                  </div>
+                </div>
+                <span
+                  style={{
+                    fontSize: 9,
+                    padding: "3px 8px",
+                    borderRadius: 999,
+                    background: "rgba(251,146,60,0.18)",
+                    color: "#fb923c",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    fontFamily: "var(--font-mono)",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Quads
+                </span>
+              </div>
+
+              {/* Sets mini table */}
+              <div
                 style={{
-                  fontSize: 9,
-                  padding: "3px 8px",
-                  borderRadius: 999,
-                  background: "rgba(251,146,60,0.18)",
-                  color: "#fb923c",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.1em",
+                  marginTop: 10,
+                  display: "grid",
+                  gridTemplateColumns: "auto 1fr 1fr 1fr auto",
+                  gap: 8,
+                  alignItems: "center",
                   fontFamily: "var(--font-mono)",
-                  whiteSpace: "nowrap",
+                  fontSize: 11,
                 }}
               >
-                Quads
-              </span>
-            </div>
-
-            {/* Sets mini table */}
-            <div
-              style={{
-                marginTop: 10,
-                display: "grid",
-                gridTemplateColumns: "auto 1fr 1fr 1fr auto",
-                gap: 8,
-                alignItems: "center",
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-              }}
-            >
-              {exerciseRows.map((row) => (
-                <>
-                  <span key={`s-${row.s}`} className="text-white/30">{row.s}</span>
-                  <span key={`w-${row.s}`} style={{ color: row.active ? "#fafafa" : "rgba(255,255,255,0.5)" }}>{row.w} lb</span>
-                  <span key={`r-${row.s}`} style={{ color: row.active ? "#fafafa" : "rgba(255,255,255,0.5)" }}>{row.r} rep</span>
-                  <span key={`e-${row.s}`} style={{ color: row.active ? "#fafafa" : "rgba(255,255,255,0.5)" }}>RPE {row.e}</span>
-                  <span
-                    key={`c-${row.s}`}
-                    style={{
-                      width: 16,
-                      height: 16,
-                      borderRadius: 4,
-                      background: row.done ? "#7c6aef" : (row.active ? "rgba(124,106,239,0.2)" : "transparent"),
-                      border: row.done ? "none" : "1px solid rgba(255,255,255,0.18)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#fff",
-                      fontSize: 9,
-                    }}
-                  >
-                    {row.done ? "✓" : ""}
-                  </span>
-                </>
-              ))}
-            </div>
-          </div>
-
-          {/* Mini coach message */}
-          <div
-            style={{
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.07)",
-              borderRadius: 12,
-              padding: "10px 12px",
-              display: "flex",
-              gap: 10,
-              alignItems: "flex-start",
-            }}
-          >
-            <LogoMark size={22} />
-            <div className="text-[12px] text-white/75 leading-relaxed">
-              Last set was clean — push 205 on the next one.
-            </div>
-          </div>
-
-          {/* Up next */}
-          <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/30">Up next</div>
-          {upNext.map((ex) => (
-            <div
-              key={ex.n}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding: "8px 12px",
-                borderRadius: 10,
-                background: "rgba(255,255,255,0.025)",
-                border: "1px solid rgba(255,255,255,0.05)",
-              }}
-            >
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <span style={{ width: 6, height: 6, borderRadius: 999, background: ex.c, display: "inline-block" }} />
-                <span style={{ fontSize: 13, color: "rgba(255,255,255,0.8)" }}>{ex.n}</span>
+                {exerciseRows.map((row) => (
+                  <>
+                    <span key={`s-${row.s}`} className="text-white/30">{row.s}</span>
+                    <span key={`w-${row.s}`} style={{ color: row.active ? "#fafafa" : "rgba(255,255,255,0.5)" }}>{row.w} lb</span>
+                    <span key={`r-${row.s}`} style={{ color: row.active ? "#fafafa" : "rgba(255,255,255,0.5)" }}>{row.r} rep</span>
+                    <span key={`e-${row.s}`} style={{ color: row.active ? "#fafafa" : "rgba(255,255,255,0.5)" }}>RPE {row.e}</span>
+                    <span
+                      key={`c-${row.s}`}
+                      className={row.done ? `ironiq-tick-${row.s}` : undefined}
+                      style={{
+                        width: 16,
+                        height: 16,
+                        borderRadius: 4,
+                        background: row.done ? "#7c6aef" : (row.active ? "rgba(124,106,239,0.2)" : "transparent"),
+                        border: row.done ? "none" : "1px solid rgba(255,255,255,0.18)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#fff",
+                        fontSize: 9,
+                      }}
+                    >
+                      {row.done ? "✓" : ""}
+                    </span>
+                  </>
+                ))}
               </div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "rgba(255,255,255,0.3)" }}>{ex.s}</span>
             </div>
-          ))}
+
+            {/* Mini coach message */}
+            <div
+              style={{
+                background: "rgba(255,255,255,0.025)",
+                border: "1px solid rgba(255,255,255,0.07)",
+                borderRadius: 12,
+                padding: "10px 12px",
+                display: "flex",
+                gap: 10,
+                alignItems: "flex-start",
+              }}
+            >
+              <LogoMark size={22} />
+              <div className="text-[12px] text-white/75 leading-relaxed">
+                Last set was clean — push 205 on the next one.
+              </div>
+            </div>
+
+            {/* Up next */}
+            <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-white/30">Up next</div>
+            {upNext.map((ex) => (
+              <div
+                key={ex.n}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "8px 12px",
+                  borderRadius: 10,
+                  background: "rgba(255,255,255,0.025)",
+                  border: "1px solid rgba(255,255,255,0.05)",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: 999, background: ex.c, display: "inline-block" }} />
+                  <span style={{ fontSize: 13, color: "rgba(255,255,255,0.8)" }}>{ex.n}</span>
+                </div>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "rgba(255,255,255,0.3)" }}>{ex.s}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </MountReveal>
 
       {/* Floating coach bubble — top-right */}
-      <div
+      <MountReveal
+        delay={0.9}
+        y={-8}
+        duration={0.7}
         style={{
           position: "absolute",
           top: 16,
           right: -8,
           zIndex: 5,
-          background: "rgba(20,18,32,0.92)",
-          backdropFilter: "blur(12px)",
-          border: "1px solid rgba(124,106,239,0.4)",
-          borderRadius: 14,
-          padding: "12px 14px",
-          maxWidth: 220,
-          boxShadow: "0 20px 40px -10px rgba(0,0,0,0.5)",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-          <span
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: 999,
-              background: "#7c6aef",
-              boxShadow: "0 0 10px #7c6aef",
-              display: "inline-block",
-            }}
-          />
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 10,
-              color: "#a99afb",
-              textTransform: "uppercase",
-              letterSpacing: "0.14em",
-            }}
-          >
-            Coach
-          </span>
+        <div
+          style={{
+            background: "rgba(20,18,32,0.92)",
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(124,106,239,0.4)",
+            borderRadius: 14,
+            padding: "12px 14px",
+            maxWidth: 220,
+            boxShadow: "0 20px 40px -10px rgba(0,0,0,0.5)",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+            <PulseDot size={8} color="#7c6aef" />
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 10,
+                color: "#a99afb",
+                textTransform: "uppercase",
+                letterSpacing: "0.14em",
+              }}
+            >
+              Coach
+            </span>
+          </div>
+          <div style={{ fontSize: 12.5, color: "#fafafa", lineHeight: 1.45 }}>
+            HRV&apos;s down today — I&apos;m cutting your last lunge set. Don&apos;t worry, we&apos;ll make it up Sunday.
+          </div>
         </div>
-        <div style={{ fontSize: 12.5, color: "#fafafa", lineHeight: 1.45 }}>
-          HRV&apos;s down today — I&apos;m cutting your last lunge set. Don&apos;t worry, we&apos;ll make it up Sunday.
-        </div>
-      </div>
+      </MountReveal>
 
       {/* Floating PR badge — bottom-left */}
-      <div
+      <MountReveal
+        delay={1.1}
+        y={8}
+        duration={0.7}
         style={{
           position: "absolute",
           bottom: 24,
           left: -16,
           zIndex: 5,
-          background: "linear-gradient(135deg, #ef5050, #c084fc)",
-          borderRadius: 14,
-          padding: "10px 14px",
-          boxShadow: "0 16px 36px -8px rgba(239,80,80,0.5)",
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
         }}
       >
-        <div style={{ fontSize: 18 }}>🔥</div>
-        <div>
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 9,
-              color: "rgba(255,255,255,0.85)",
-              textTransform: "uppercase",
-              letterSpacing: "0.14em",
-            }}
-          >
-            New PR
+        <div
+          style={{
+            background: "linear-gradient(135deg, #ef5050, #c084fc)",
+            borderRadius: 14,
+            padding: "10px 14px",
+            boxShadow: "0 16px 36px -8px rgba(239,80,80,0.5)",
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
+          }}
+        >
+          <div style={{ fontSize: 18 }}>🔥</div>
+          <div>
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 9,
+                color: "rgba(255,255,255,0.85)",
+                textTransform: "uppercase",
+                letterSpacing: "0.14em",
+              }}
+            >
+              New PR
+            </div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "#fff" }}>Squat · 315 lb</div>
           </div>
-          <div style={{ fontSize: 13, fontWeight: 600, color: "#fff" }}>Squat · 315 lb</div>
         </div>
-      </div>
+      </MountReveal>
     </div>
   );
 }
@@ -349,19 +368,9 @@ function CoachCard({ time, type, quote }: { time: string; type: string; quote: s
   );
 }
 
-// ── Data showcase: 12-week squat e1RM SVG chart ────────────────
+// ── Data showcase: 12-week squat e1RM chart ────────────────────
 function DataShowcase() {
   const data = [285, 290, 292, 295, 295, 300, 305, 305, 308, 312, 315, 318];
-  const max = Math.max(...data);
-  const min = Math.min(...data);
-  const W = 480, H = 320, padX = 20, padY = 28;
-  const pts = data.map((v, i) => ({
-    x: padX + (i * (W - padX * 2)) / (data.length - 1),
-    y: padY + ((max - v) * (H - padY * 2)) / (max - min),
-  }));
-  const linePath = pts.map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`)).join(" ");
-  const areaPath = `${linePath} L ${pts[pts.length - 1].x} ${H - padY} L ${pts[0].x} ${H - padY} Z`;
-  const prIdxs = [5, 9, 11];
 
   return (
     <div
@@ -416,41 +425,8 @@ function DataShowcase() {
         </div>
       </div>
 
-      <svg
-        viewBox={`0 0 ${W} ${H}`}
-        style={{ width: "100%", height: "auto", display: "block", marginTop: 12 }}
-      >
-        <defs>
-          <linearGradient id="ds-grad" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor="#7c6aef" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#7c6aef" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        {[0.25, 0.5, 0.75].map((f) => (
-          <line
-            key={f}
-            x1={padX}
-            x2={W - padX}
-            y1={padY + f * (H - padY * 2)}
-            y2={padY + f * (H - padY * 2)}
-            stroke="rgba(217,207,237,0.05)"
-            strokeDasharray="2 4"
-          />
-        ))}
-        <path d={areaPath} fill="url(#ds-grad)" />
-        <path d={linePath} fill="none" stroke="#7c6aef" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-        {pts.map((p, i) =>
-          i === pts.length - 1 ? (
-            <g key={`end-${i}`}>
-              <circle cx={p.x} cy={p.y} r="14" fill="#7c6aef" opacity="0.18" />
-              <circle cx={p.x} cy={p.y} r="5" fill="#7c6aef" stroke="#fafafa" strokeWidth="2" />
-            </g>
-          ) : null
-        )}
-        {prIdxs.map((i) => (
-          <circle key={`pr-${i}`} cx={pts[i].x} cy={pts[i].y} r="3" fill="#fb7185" />
-        ))}
-      </svg>
+      {/* Animated line chart */}
+      <AnimatedLineChart data={data} width={480} height={320} />
 
       <div
         style={{
@@ -654,88 +630,161 @@ export default function LandingPage() {
         >
           {/* LEFT — copy */}
           <div>
-              {/* Headline */}
-            <h1
-              style={{
-                margin: 0,
-                fontSize: 92,
-                fontWeight: 200,
-                lineHeight: 0.96,
-                letterSpacing: "-0.045em",
-                color: "#fafafa",
-              }}
-            >
-              Train like
-              <br />
-              you have a
-              <br />
-              <span style={{ position: "relative", display: "inline-block" }}>
-                <span style={{ fontStyle: "italic", fontWeight: 300, color: "#c4b5fd" }}>coach</span>
+            {/* Eyebrow */}
+            <MountReveal delay={0.1}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 28 }}>
+                <PulseDot size={7} color="#a99afb" />
                 <span
                   style={{
-                    position: "absolute",
-                    left: -2,
-                    right: -2,
-                    bottom: 6,
-                    height: 14,
-                    background: "linear-gradient(90deg, #7c6aef, #c084fc)",
-                    opacity: 0.25,
-                    zIndex: -1,
-                    borderRadius: 2,
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 11,
+                    color: "#a99afb",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.18em",
                   }}
-                />
-              </span>
-              {" "}
-              <span style={{ color: "#7c6aef", fontWeight: 400 }}>.</span>
-            </h1>
+                >
+                  AI Strength Coaching
+                </span>
+              </div>
+            </MountReveal>
 
-            <p
-              style={{
-                margin: "32px 0 0",
-                maxWidth: 480,
-                fontSize: 17,
-                color: "#c2bdcc",
-                lineHeight: 1.55,
-                fontWeight: 400,
-              }}
-            >
-              IronIQ writes your program, watches every set, and rewrites tomorrow before
-              you put the bar down.{" "}
-              <span style={{ color: "#fafafa" }}>
-                It&apos;s the coach you can&apos;t afford, living in your phone.
-              </span>
-            </p>
-
-            {/* CTAs */}
-            <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 36 }}>
-              <Link
-                href="/signup"
+            {/* Headline */}
+            <MountReveal delay={0.25}>
+              <h1
                 style={{
-                  height: 48,
-                  padding: "0 22px",
-                  borderRadius: 12,
-                  fontWeight: 600,
-                  fontSize: 15,
-                  background: "#7c6aef",
-                  color: "#fff",
-                  textDecoration: "none",
-                  boxShadow: "0 0 0 1px rgba(124,106,239,0.4), 0 12px 32px -8px rgba(124,106,239,0.6)",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  whiteSpace: "nowrap",
+                  margin: 0,
+                  fontSize: 92,
+                  fontWeight: 200,
+                  lineHeight: 0.96,
+                  letterSpacing: "-0.045em",
+                  color: "#fafafa",
                 }}
               >
-                Start your first block →
-              </Link>
-            </div>
+                Train like
+                <br />
+                you have a
+                <br />
+                <span style={{ position: "relative", display: "inline-block" }}>
+                  <span style={{ fontStyle: "italic", fontWeight: 300, color: "#c4b5fd" }}>coach</span>
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: -2,
+                      right: -2,
+                      bottom: 6,
+                      height: 14,
+                      background: "linear-gradient(90deg, #7c6aef, #c084fc)",
+                      opacity: 0.25,
+                      zIndex: -1,
+                      borderRadius: 2,
+                    }}
+                  />
+                </span>
+                {" "}
+                <span style={{ color: "#7c6aef", fontWeight: 400 }}>.</span>
+              </h1>
+            </MountReveal>
 
+            <MountReveal delay={0.4}>
+              <p
+                style={{
+                  margin: "32px 0 0",
+                  maxWidth: 480,
+                  fontSize: 17,
+                  color: "#c2bdcc",
+                  lineHeight: 1.55,
+                  fontWeight: 400,
+                }}
+              >
+                IronIQ writes your program, watches every set, and rewrites tomorrow before
+                you put the bar down.{" "}
+                <span style={{ color: "#fafafa" }}>
+                  It&apos;s the coach you can&apos;t afford, living in your phone.
+                </span>
+              </p>
+            </MountReveal>
+
+            {/* CTAs */}
+            <MountReveal delay={0.55}>
+              <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 36 }}>
+                <Link
+                  href="/signup"
+                  style={{
+                    position: "relative",
+                    overflow: "hidden",
+                    height: 48,
+                    padding: "0 22px",
+                    borderRadius: 12,
+                    fontWeight: 600,
+                    fontSize: 15,
+                    background: "#7c6aef",
+                    color: "#fff",
+                    textDecoration: "none",
+                    boxShadow: "0 0 0 1px rgba(124,106,239,0.4), 0 12px 32px -8px rgba(124,106,239,0.6)",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Start your first block →
+                  <span className="ironiq-cta-shimmer" aria-hidden />
+                </Link>
+              </div>
+            </MountReveal>
+
+            {/* Stats */}
+            <MountReveal delay={0.7}>
+              <div
+                style={{
+                  marginTop: 36,
+                  paddingTop: 28,
+                  borderTop: "1px solid rgba(217,207,237,0.07)",
+                  display: "flex",
+                  gap: 40,
+                }}
+              >
+                {[
+                  { to: 47000,   label: "Lifters",      fmt: (n: number) => `${Math.round(n / 1000)}k` },
+                  { to: 2300000, label: "Sets logged",   fmt: (n: number) => `${(n / 1000000).toFixed(1)}M` },
+                  { to: 18,      label: "Avg strength ↑",fmt: (n: number) => `+${Math.round(n)}%` },
+                ].map((s) => (
+                  <div key={s.label}>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 28,
+                        fontWeight: 300,
+                        color: "#fafafa",
+                        letterSpacing: "-0.02em",
+                      }}
+                    >
+                      <CountUp to={s.to} format={s.fmt} />
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 10,
+                        color: "#7a7585",
+                        marginTop: 4,
+                        letterSpacing: "0.06em",
+                      }}
+                    >
+                      {s.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </MountReveal>
           </div>
 
           {/* RIGHT — product mockup */}
           <HeroProductVisual />
         </div>
       </section>
+
+      {/* ── LIVE TICKER ── */}
+      <MarqueeStrip />
 
       {/* ── §01 PRINCIPLES ── */}
       <section style={{ borderBottom: "1px solid rgba(217,207,237,0.06)" }}>
@@ -749,94 +798,7 @@ export default function LandingPage() {
             gap: 80,
           }}
         >
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-                color: "#7c6aef",
-                textTransform: "uppercase",
-                letterSpacing: "0.18em",
-                fontWeight: 500,
-              }}
-            >
-              § 01 — Principle
-            </div>
-            <h2
-              style={{
-                margin: "16px 0 0",
-                fontSize: 56,
-                fontWeight: 200,
-                lineHeight: 1.0,
-                letterSpacing: "-0.035em",
-                color: "#fafafa",
-              }}
-            >
-              Plans don&apos;t
-              <br />
-              build muscle.
-              <br />
-              <span style={{ fontStyle: "italic", fontWeight: 300, color: "#c4b5fd" }}>Adjustments do.</span>
-            </h2>
-          </div>
-          <div style={{ paddingTop: 24 }}>
-            <p style={{ margin: 0, fontSize: 19, lineHeight: 1.55, color: "#d1ccd9", maxWidth: 560 }}>
-              A static program is a fossil. Sleep is patchy, motivation drifts, the left
-              knee is grumpy this Tuesday. Real coaches read the room and rewrite the
-              session.{" "}
-              <span style={{ color: "#fafafa", fontWeight: 500 }}>
-                So does IronIQ — between every set, every day, every block.
-              </span>
-            </p>
-            <div
-              style={{
-                marginTop: 40,
-                paddingTop: 28,
-                borderTop: "1px solid rgba(217,207,237,0.07)",
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: 32,
-              }}
-            >
-              {principles.map((p) => (
-                <div key={p.n}>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 11,
-                      color: "#7c6aef",
-                      letterSpacing: "0.1em",
-                      marginBottom: 8,
-                    }}
-                  >
-                    {p.n}
-                  </div>
-                  <div style={{ fontSize: 16, fontWeight: 500, color: "#fafafa", marginBottom: 4 }}>{p.t}</div>
-                  <div style={{ fontSize: 13.5, color: "#a8a3b3", lineHeight: 1.55 }}>{p.d}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── §02 COACH IN ACTION ── */}
-      <section
-        style={{
-          borderBottom: "1px solid rgba(217,207,237,0.06)",
-          background: "radial-gradient(60% 80% at 50% 0%, rgba(124,106,239,0.08) 0%, transparent 70%)",
-        }}
-      >
-        <div style={{ maxWidth: 1240, margin: "0 auto", padding: "104px 28px" }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "flex-end",
-              justifyContent: "space-between",
-              marginBottom: 56,
-              gap: 40,
-            }}
-          >
+          <Reveal>
             <div>
               <div
                 style={{
@@ -848,7 +810,7 @@ export default function LandingPage() {
                   fontWeight: 500,
                 }}
               >
-                § 02 — The coach
+                § 01 — Principle
               </div>
               <h2
                 style={{
@@ -858,20 +820,113 @@ export default function LandingPage() {
                   lineHeight: 1.0,
                   letterSpacing: "-0.035em",
                   color: "#fafafa",
-                  maxWidth: 720,
                 }}
               >
-                Less app,{" "}
-                <span style={{ fontStyle: "italic", fontWeight: 300, color: "#c4b5fd" }}>
-                  more conversation
-                </span>
-                .
+                Plans don&apos;t
+                <br />
+                build muscle.
+                <br />
+                <span style={{ fontStyle: "italic", fontWeight: 300, color: "#c4b5fd" }}>Adjustments do.</span>
               </h2>
             </div>
-            <div style={{ fontSize: 13, color: "#a8a3b3", maxWidth: 320, textAlign: "right", flexShrink: 0 }}>
-              Real moments from the coach surface — pulled, lightly redacted, from a week of training.
+          </Reveal>
+          <Reveal delay={0.15}>
+            <div style={{ paddingTop: 24 }}>
+              <p style={{ margin: 0, fontSize: 19, lineHeight: 1.55, color: "#d1ccd9", maxWidth: 560 }}>
+                A static program is a fossil. Sleep is patchy, motivation drifts, the left
+                knee is grumpy this Tuesday. Real coaches read the room and rewrite the
+                session.{" "}
+                <span style={{ color: "#fafafa", fontWeight: 500 }}>
+                  So does IronIQ — between every set, every day, every block.
+                </span>
+              </p>
+              <div
+                style={{
+                  marginTop: 40,
+                  paddingTop: 28,
+                  borderTop: "1px solid rgba(217,207,237,0.07)",
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: 32,
+                }}
+              >
+                {principles.map((p) => (
+                  <div key={p.n}>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 11,
+                        color: "#7c6aef",
+                        letterSpacing: "0.1em",
+                        marginBottom: 8,
+                      }}
+                    >
+                      {p.n}
+                    </div>
+                    <div style={{ fontSize: 16, fontWeight: 500, color: "#fafafa", marginBottom: 4 }}>{p.t}</div>
+                    <div style={{ fontSize: 13.5, color: "#a8a3b3", lineHeight: 1.55 }}>{p.d}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ── §02 COACH IN ACTION ── */}
+      <section
+        style={{
+          borderBottom: "1px solid rgba(217,207,237,0.06)",
+          background: "radial-gradient(60% 80% at 50% 0%, rgba(124,106,239,0.08) 0%, transparent 70%)",
+        }}
+      >
+        <div style={{ maxWidth: 1240, margin: "0 auto", padding: "104px 28px" }}>
+          <Reveal>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-end",
+                justifyContent: "space-between",
+                marginBottom: 56,
+                gap: 40,
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 11,
+                    color: "#7c6aef",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.18em",
+                    fontWeight: 500,
+                  }}
+                >
+                  § 02 — The coach
+                </div>
+                <h2
+                  style={{
+                    margin: "16px 0 0",
+                    fontSize: 56,
+                    fontWeight: 200,
+                    lineHeight: 1.0,
+                    letterSpacing: "-0.035em",
+                    color: "#fafafa",
+                    maxWidth: 720,
+                  }}
+                >
+                  Less app,{" "}
+                  <span style={{ fontStyle: "italic", fontWeight: 300, color: "#c4b5fd" }}>
+                    more conversation
+                  </span>
+                  .
+                </h2>
+              </div>
+              <div style={{ fontSize: 13, color: "#a8a3b3", maxWidth: 320, textAlign: "right", flexShrink: 0 }}>
+                Real moments from the coach surface — pulled, lightly redacted, from a week of training.
+              </div>
+            </div>
+          </Reveal>
 
           <div
             style={{
@@ -880,8 +935,10 @@ export default function LandingPage() {
               gap: 20,
             }}
           >
-            {coachMoments.map((m) => (
-              <CoachCard key={m.time} time={m.time} type={m.type} quote={m.quote} />
+            {coachMoments.map((m, i) => (
+              <Reveal key={m.time} delay={i * 0.08}>
+                <CoachCard time={m.time} type={m.type} quote={m.quote} />
+              </Reveal>
             ))}
           </div>
         </div>
@@ -900,60 +957,64 @@ export default function LandingPage() {
             alignItems: "center",
           }}
         >
-          <DataShowcase />
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-                color: "#7c6aef",
-                textTransform: "uppercase",
-                letterSpacing: "0.18em",
-                fontWeight: 500,
-              }}
-            >
-              § 03 — The signal
+          <Reveal>
+            <DataShowcase />
+          </Reveal>
+          <Reveal delay={0.2}>
+            <div>
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  color: "#7c6aef",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.18em",
+                  fontWeight: 500,
+                }}
+              >
+                § 03 — The signal
+              </div>
+              <h2
+                style={{
+                  margin: "16px 0 0",
+                  fontSize: 56,
+                  fontWeight: 200,
+                  lineHeight: 1.0,
+                  letterSpacing: "-0.035em",
+                  color: "#fafafa",
+                }}
+              >
+                See the{" "}
+                <span style={{ fontStyle: "italic", fontWeight: 300, color: "#c4b5fd" }}>signal</span>.
+                <br />
+                Skip the noise.
+              </h2>
+              <p style={{ marginTop: 28, fontSize: 17, color: "#c2bdcc", lineHeight: 1.55, maxWidth: 480 }}>
+                Strength trends, volume per muscle group, recovery score, PR cadence —
+                the numbers that actually move your training. No vanity metrics, no
+                step-counter graveyard.
+              </p>
+              <ul style={{ marginTop: 28, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 14 }}>
+                {signalList.map((t, i) => (
+                  <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, fontSize: 14.5, color: "#d1ccd9" }}>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 11,
+                        color: "#7c6aef",
+                        marginTop: 4,
+                        flexShrink: 0,
+                        width: 18,
+                      }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {t}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <h2
-              style={{
-                margin: "16px 0 0",
-                fontSize: 56,
-                fontWeight: 200,
-                lineHeight: 1.0,
-                letterSpacing: "-0.035em",
-                color: "#fafafa",
-              }}
-            >
-              See the{" "}
-              <span style={{ fontStyle: "italic", fontWeight: 300, color: "#c4b5fd" }}>signal</span>.
-              <br />
-              Skip the noise.
-            </h2>
-            <p style={{ marginTop: 28, fontSize: 17, color: "#c2bdcc", lineHeight: 1.55, maxWidth: 480 }}>
-              Strength trends, volume per muscle group, recovery score, PR cadence —
-              the numbers that actually move your training. No vanity metrics, no
-              step-counter graveyard.
-            </p>
-            <ul style={{ marginTop: 28, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 14 }}>
-              {signalList.map((t, i) => (
-                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, fontSize: 14.5, color: "#d1ccd9" }}>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 11,
-                      color: "#7c6aef",
-                      marginTop: 4,
-                      flexShrink: 0,
-                      width: 18,
-                    }}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
+          </Reveal>
         </div>
       </section>
 
@@ -970,61 +1031,68 @@ export default function LandingPage() {
             alignItems: "end",
           }}
         >
-          <h2
-            style={{
-              margin: 0,
-              fontSize: 96,
-              fontWeight: 200,
-              lineHeight: 0.92,
-              letterSpacing: "-0.045em",
-              color: "#fafafa",
-            }}
-          >
-            Show up.
-            <br />
-            We&apos;ll handle
-            <br />
-            <span style={{ fontStyle: "italic", fontWeight: 300, color: "#c4b5fd" }}>the rest</span>
-            <span style={{ color: "#7c6aef" }}>.</span>
-          </h2>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14, minWidth: 280 }}>
-            <Link
-              href="/signup"
+          <Reveal>
+            <h2
               style={{
-                height: 56,
-                borderRadius: 14,
-                fontWeight: 600,
-                fontSize: 16,
-                background: "#fafafa",
-                color: "#08080d",
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 10,
-              }}
-            >
-              Start training free →
-            </Link>
-            <Link
-              href="/login"
-              style={{
-                height: 56,
-                borderRadius: 14,
-                fontWeight: 500,
-                fontSize: 15,
-                background: "transparent",
+                margin: 0,
+                fontSize: 96,
+                fontWeight: 200,
+                lineHeight: 0.92,
+                letterSpacing: "-0.045em",
                 color: "#fafafa",
-                border: "1px solid rgba(217,207,237,0.14)",
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
               }}
             >
-              Sign in
-            </Link>
-          </div>
+              Show up.
+              <br />
+              We&apos;ll handle
+              <br />
+              <span style={{ fontStyle: "italic", fontWeight: 300, color: "#c4b5fd" }}>the rest</span>
+              <span style={{ color: "#7c6aef" }}>.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14, minWidth: 280 }}>
+              <Link
+                href="/signup"
+                style={{
+                  position: "relative",
+                  overflow: "hidden",
+                  height: 56,
+                  borderRadius: 14,
+                  fontWeight: 600,
+                  fontSize: 16,
+                  background: "#fafafa",
+                  color: "#08080d",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 10,
+                }}
+              >
+                Start training free →
+                <span className="ironiq-cta-shimmer" aria-hidden />
+              </Link>
+              <Link
+                href="/login"
+                style={{
+                  height: 56,
+                  borderRadius: 14,
+                  fontWeight: 500,
+                  fontSize: 15,
+                  background: "transparent",
+                  color: "#fafafa",
+                  border: "1px solid rgba(217,207,237,0.14)",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                Sign in
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
 
